@@ -84,7 +84,7 @@ $services[] = array("port" => "8083",  "service" => "Vesta panel",         "ip" 
 $data .= "<small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Port</th><th>Status</th></tr></thead>";
 foreach ($services  as $service) {
 	if($service['ip']==""){
-	   $service['ip'] = "localhost";
+	   $service['ip'] = "10.125.6.250";
 	}
 	$data .= "<tr><td><a href=\"http://" . $service['ip'] . ":" . $service['port'] . "\">" . $service['service'] . "</a></td><td>". $service['port'];
 	// $data .= "<tr><td>" . $service['service'] . "</td><td>". $service['port'];
