@@ -24,7 +24,7 @@ pre code {
   	<h4 class="card-header text-center">
 		Wi-Fi QR-Code
   	</h4>
-	<div class="card mb-3" style="max-width: 540px;">
+	<div class="card mb-3 mx-auto" style="max-width: 540px;">
 	    <div class="row align-items-center g-0">
 	        <div class="col-md-4">
 	          <img src="Lin-qrcode.png" alt="Lin-home_Wi-Fi" class="img-thumbnail">
@@ -40,7 +40,7 @@ pre code {
 	        </div>
 	        <hr>
 	        <div class="col-md-12">
-				<span class="d-inline-block"><small class="text-muted">將手機相機對準 QR Code 即可自動連接 WiFi</small>
+				<span class="d-inline-block"><small class="text-muted"><strong>將手機相機對準 QR Code 即可自動連接 WiFi</strong></small>
 				</span>
 				<i class="fas fa-angle-down">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
@@ -85,6 +85,46 @@ Original author:
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+$IoTdata = "";
+$IoTdata .= '
+<div class="card my-2">
+  <h4 class="card-header text-center">
+    IoT Service Status & Control
+  </h4>
+  <div class="card-body pb-0">
+';
+
+$IoTservices = array();
+
+$IoTservices[] = array("service" => "加壓馬達", "ip" => "10.125.6.175");
+$IoTdata .= "<small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Status</th><th>Control</th></tr></thead>";
+
+foreach ($IoTservices as $service) {
+	$pump_url = 'http://' . $service['ip'] . '/cm?cmnd=Power';
+	$pump_json = file_get_contents($pump_url);
+	$pump_json_decode = json_decode($pump_json);
+	
+	if($pump_json_decode->POWER == "OFF") {
+		// $IoTdata .= "<tr><td>" . $service['service'] . "</td><td><a class='btn btn-primary' role='button' href=\"http://" . $service['ip'] . "/cm?cmnd=Power%20On\">Open</a></td>";
+		// $IoTdata .= "<td class='table-danger'>Offline</td></tr>";
+		$IoTdata .= "<tr><td><a href=\"http://" . $service['ip'] . "\"><strong>" . $service['service'] . "</strong></a></td><td class='table-danger'><strong>Shutdown</strong></td>";
+		$IoTdata .= "<td><a class='btn btn-primary' role='button' href=\"http://" . $service['ip'] . "/cm?cmnd=Power%20On\">Open</a></td></tr>";
+	} else {
+		// $IoTdata .= "<tr><td>" . $service['service'] . "</td><td><a class='btn btn-danger' role='button' href=\"http://" . $service['ip'] . "/cm?cmnd=Power%20Off\">Close</a></td>";
+		// $IoTdata .= "<td class='table-success'>Online</td></tr>";
+		$IoTdata .= "<tr><td><a href=\"http://" . $service['ip'] . "\"><strong>" . $service['service'] . "</strong></a></td><td class='table-success'><strong>Working</strong></td>";
+		$IoTdata .= "<td><a class='btn btn-danger' role='button' href=\"http://" . $service['ip'] . "/cm?cmnd=Power%20Off\">Close</a></td></tr>";
+	}
+
+}
+//close table
+$IoTdata .= "</table></small>";
+$IoTdata .= '
+  </div>
+</div>
+';
+echo $IoTdata;
+
 $data = "";
 $data .= '
 <div class="card my-2">
@@ -106,15 +146,18 @@ Each service can have a name, port and the Unix domain it run on (default to loc
 */
 $services = array();
 
-$services[] = array("port" => "80",    "service" => "IoT: 加壓馬達",                   "ip" => "10.125.6.175") ;
-$services[] = array("port" => "80",    "service" => "Mikrotik-RB750Gr3",               "ip" => "10.125.6.254") ;
-$services[] = array("port" => "80",    "service" => "HPE PoE Managed Switch",          "ip" => "10.125.6.253") ;
-$services[] = array("port" => "80",    "service" => "4F AP: RT-n18u Asuswrt-Merlin",   "ip" => "10.125.6.252") ;
-$services[] = array("port" => "80",    "service" => "2F AP: Xiaomi Mi AX3600",         "ip" => "10.125.6.251") ;
-$services[] = array("port" => "7050",  "service" => "Synology NAS DSM",                "ip" => "") ;
-$services[] = array("port" => "3000",  "service" => "Gitea",                           "ip" => "") ;
-$services[] = array("port" => "53",    "service" => "(Google DNS)Internet Connection", "ip" => "8.8.8.8") ;
+$services[] = array("port" => "80",   "service" => "Mikrotik-RB750Gr3",               "ip" => "10.125.6.254", "other_cfg" => "") ;
+$services[] = array("port" => "80",   "service" => "HPE PoE Managed Switch",          "ip" => "10.125.6.253", "other_cfg" => "") ;
+$services[] = array("port" => "80",   "service" => "4F AP: RT-n18u Asuswrt-Merlin",   "ip" => "10.125.6.252", "other_cfg" => "") ;
+$services[] = array("port" => "80",   "service" => "2F AP: Xiaomi Mi AX3600",         "ip" => "10.125.6.251", "other_cfg" => "") ;
+$services[] = array("port" => "80",   "service" => "HIKVISION 監視器",              "ip" => "10.125.6.246", "other_cfg" => "") ;
+$services[] = array("port" => "7050", "service" => "監視器 KVM(SurveillanceStation)", "ip" => "",             "other_cfg" => "webman/3rdparty/SurveillanceStation") ;
+$services[] = array("port" => "7050", "service" => "Synology NAS DSM",                "ip" => "",             "other_cfg" => "") ;
+$services[] = array("port" => "3000", "service" => "Gitea",                           "ip" => "",             "other_cfg" => "") ;
+$services[] = array("port" => "80",   "service" => "IoT: 加壓馬達",                   "ip" => "10.125.6.175", "other_cfg" => "") ;
+$services[] = array("port" => "53",   "service" => "(Google DNS)Internet Connection", "ip" => "8.8.8.8",      "other_cfg" => "") ;
 
+http://10.125.6.250:7050/webman/3rdparty/SurveillanceStation/
 
 //begin table for status
 $data .= "<small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Port</th><th>Status</th></tr></thead>";
@@ -123,7 +166,11 @@ foreach ($services  as $service) {
 	   $service['ip'] = "10.125.6.250";
 	}
 	if($service['port']=="80" || $service['port']=="7050" || $service['port']=="3000"){
-		$data .= "<tr><td><a href=\"http://" . $service['ip'] . ":" . $service['port'] . "\">" . $service['service'] . "</a></td><td>". $service['port'];
+		if($service['other_cfg']==""){
+			$data .= "<tr><td><a href=\"http://" . $service['ip'] . ":" . $service['port'] . "\">" . $service['service'] . "</a></td><td>". $service['port'];
+		} else {
+			$data .= "<tr><td><a href=\"http://" . $service['ip'] . ":" . $service['port'] . "/" . $service['other_cfg'] . "\">" . $service['service'] . "</a></td><td>". $service['port'];
+		}
 	} else {
 		$data .= "<tr><td>" . $service['service'] . "</td><td>". $service['port'];
 	}
