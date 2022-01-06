@@ -21,7 +21,6 @@ pre code {
 <html><div class="container">
 <?php
 /*
-
  *
  * @author      Trường An Phạm Nguyễn
  * @copyright   2019, The authors
@@ -29,7 +28,6 @@ pre code {
  *        http://www.gnu.org/licenses/agpl-3.0.html
  *
  * Jul 27, 2013
-
 Original author:
 *       Disclaimer Notice(s)                                                          
 *       ex: This code is freely given to you and given "AS IS", SO if it damages      
@@ -39,17 +37,14 @@ Original author:
 *   +------------------------------------------------------------------------------+
 *       Author(s): Crooty.co.uk (Adam C)                                    
 *   +------------------------------------------------------------------------------+
-
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
-
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */  
@@ -218,8 +213,8 @@ $i = 5;
 -o to specify output format, it's a list of column name. = suppress the display of column name
 head to get only the first few lines 
 */
-exec("ps -e k-rss -o rss,args | head -n $i", $tom_mem_arr, $status);
-exec("ps -e k-pcpu -o pcpu,args | head -n $i", $top_cpu_use, $status);
+exec("ps -e k-rss -o rss,args | head -n $i | tail -n +2", $tom_mem_arr, $status);
+exec("ps -e k-pcpu -o pcpu,args | head -n $i | tail -n +2", $top_cpu_use, $status);
 
 
 $top_mem = implode('<br/>', $tom_mem_arr );
@@ -245,8 +240,8 @@ $disks[] = array("name" => "local" , "path" => getcwd()) ;
 $data1 .= "<tr><td>Disk free        </td><td>" . get_disk_free_status($disks) . "</td></tr>";
 
 $data1 .= "<tr><td>RAM free        </td><td>". format_storage_info($total_mem *1024, $free_mem *1024, '') ."</td></tr>";
-$data1 .= "<tr><td>Top RAM user    </td><td><small>$top_mem</small></td></tr>";
-$data1 .= "<tr><td>Top CPU user    </td><td><small>$top_cpu</small></td></tr>";
+$data1 .= "<tr><td>Top RAM user    </td><td><small><pre class='mb-0 '><code>RSS COMMAND</code></pre>$top_mem</small></td></tr>";
+$data1 .= "<tr><td>Top CPU user    </td><td><small><pre class='mb-0 '><code>CPU COMMAND</code></pre>$top_cpu</small></td></tr>";
 
 $data1 .= "</table>";
 // $data1 .= '  </div></div>';
@@ -280,7 +275,6 @@ exec('vnstat -' . escapeshellarg( $_GET['showtraffic'] ), $traffic_arr, $status)
 ///for testing
 $traffic = "
 enp0s20  /  monthly
-
 month        rx      |     tx      |    total    |   avg. rate
 ------------------------+-------------+-------------+---------------
 Sep '18     36.60 GiB |    7.04 GiB |   43.64 GiB |  144.62 kbit/s
