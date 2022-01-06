@@ -19,6 +19,43 @@ pre code {
 	</style>
 </head>
 <html><div class="container">
+<!-- Wi-Fi QR-Code -->
+<div class="card my-2">
+  	<h4 class="card-header text-center">
+		Wi-Fi QR-Code
+  	</h4>
+	<div class="card mb-3" style="max-width: 540px;">
+	    <div class="row align-items-center g-0">
+	        <div class="col-md-4">
+	          <img src="Lin-qrcode.png" alt="Lin-home_Wi-Fi" class="img-thumbnail">
+	        </div>
+	        <div class="col-md-8">
+	            <div class="card-body">
+	                <h5 class="card-title">網路名稱: </h5>
+	                <p class="card-text">Lin</p>
+	                <hr>
+	                <h5 class="card-title">密碼: </h5>
+	                <p class="card-text">26277050</p>
+	            </div>
+	        </div>
+	        <hr>
+	        <div class="col-md-12">
+				<span class="d-inline-block"><small class="text-muted">將手機相機對準 QR Code 即可自動連接 WiFi</small>
+				</span>
+				<i class="fas fa-angle-down">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+						<path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+						<path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+  						<path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/>
+					</svg>
+				</i>
+	        </div>
+	    </div>
+	</div>
+	</div>
+<!-- End - Wi-Fi QR-Code -->
 <?php
 /*
  *
@@ -47,7 +84,7 @@ Original author:
 	GNU General Public License for more details.
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/  
+*/
 $data = "";
 $data .= '
 <div class="card my-2">
@@ -69,25 +106,27 @@ Each service can have a name, port and the Unix domain it run on (default to loc
 */
 $services = array();
 
-
-$services[] = array("port" => "80",    "service" => "Web server",          "ip" => "") ;
-$services[] = array("port" => "21",    "service" => "FTP",                 "ip" => "") ;
-$services[] = array("port" => "3306",  "service" => "MYSQL",               "ip" => "") ;
-$services[] = array("port" => "22",    "service" => "Open SSH",			   "ip" => "") ;
-$services[] = array("port" => "58846", "service" => "Deluge",              "ip" => "") ;
-$services[] = array("port" => "8112",  "service" => "Deluge Web",          "ip" => "") ;
-$services[] = array("port" => "80",    "service" => "Internet Connection", "ip" => "google.com") ;
-$services[] = array("port" => "8083",  "service" => "Vesta panel",         "ip" => "") ;
+$services[] = array("port" => "80",    "service" => "IoT: 加壓馬達",                   "ip" => "10.125.6.175") ;
+$services[] = array("port" => "80",    "service" => "Mikrotik-RB750Gr3",               "ip" => "10.125.6.254") ;
+$services[] = array("port" => "80",    "service" => "HPE PoE Managed Switch",          "ip" => "10.125.6.253") ;
+$services[] = array("port" => "80",    "service" => "4F AP: RT-n18u Asuswrt-Merlin",   "ip" => "10.125.6.252") ;
+$services[] = array("port" => "80",    "service" => "2F AP: Xiaomi Mi AX3600",         "ip" => "10.125.6.251") ;
+$services[] = array("port" => "7050",  "service" => "Synology NAS DSM",                "ip" => "") ;
+$services[] = array("port" => "3000",  "service" => "Gitea",                           "ip" => "") ;
+$services[] = array("port" => "53",    "service" => "(Google DNS)Internet Connection", "ip" => "8.8.8.8") ;
 
 
 //begin table for status
 $data .= "<small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Port</th><th>Status</th></tr></thead>";
 foreach ($services  as $service) {
-	if($service['ip']==""){
+	if($service['ip']=="" || $service['ip']=="localhost"){
 	   $service['ip'] = "10.125.6.250";
 	}
-	$data .= "<tr><td><a href=\"http://" . $service['ip'] . ":" . $service['port'] . "\">" . $service['service'] . "</a></td><td>". $service['port'];
-	// $data .= "<tr><td>" . $service['service'] . "</td><td>". $service['port'];
+	if($service['port']=="80" || $service['port']=="7050" || $service['port']=="3000"){
+		$data .= "<tr><td><a href=\"http://" . $service['ip'] . ":" . $service['port'] . "\">" . $service['service'] . "</a></td><td>". $service['port'];
+	} else {
+		$data .= "<tr><td>" . $service['service'] . "</td><td>". $service['port'];
+	}
 
 	$fp = @fsockopen($service['ip'], $service['port'], $errno, $errstr, $timeout);
 	if (!$fp) {
@@ -119,7 +158,7 @@ $data1 = "";
 $data1 .= '
 <div class="card mb-2">
   <h4 class="card-header text-center">
-    Server information
+	Synology NAS information
   </h4>
   <div class="card-body">
 ';
