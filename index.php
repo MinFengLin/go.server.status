@@ -70,16 +70,14 @@ Each service can have a name, port and the Unix domain it run on (default to loc
 $services = array();
 
 
-$services[] = array("port" => "80",       "service" => "Web server",                  "ip" => "") ;
-$services[] = array("port" => "21",       "service" => "FTP",                     "ip" => "") ;
-$services[] = array("port" => "3306",     "service" => "MYSQL",                   "ip" => "") ;
-// $services[] = array("port" => "3000",     "service" => "Mastodon web",                   "ip" => "") ;
-// $services[] = array("port" => "4000",     "service" => "Mastodon streaming",                   "ip" => "") ;
-$services[] = array("port" => "22",       "service" => "Open SSH",				"ip" => "") ;
-$services[] = array("port" => "58846",     "service" => "Deluge",             	"ip" => "") ;
-$services[] = array("port" => "8112",     "service" => "Deluge Web",             	"ip" => "") ;
-$services[] = array("port" => "80",       "service" => "Internet Connection",     "ip" => "google.com") ;
-$services[] = array("port" => "8083",     "service" => "Vesta panel",             	"ip" => "") ;
+$services[] = array("port" => "80",    "service" => "Web server",          "ip" => "") ;
+$services[] = array("port" => "21",    "service" => "FTP",                 "ip" => "") ;
+$services[] = array("port" => "3306",  "service" => "MYSQL",               "ip" => "") ;
+$services[] = array("port" => "22",    "service" => "Open SSH",			   "ip" => "") ;
+$services[] = array("port" => "58846", "service" => "Deluge",              "ip" => "") ;
+$services[] = array("port" => "8112",  "service" => "Deluge Web",          "ip" => "") ;
+$services[] = array("port" => "80",    "service" => "Internet Connection", "ip" => "google.com") ;
+$services[] = array("port" => "8083",  "service" => "Vesta panel",         "ip" => "") ;
 
 
 //begin table for status
@@ -88,7 +86,8 @@ foreach ($services  as $service) {
 	if($service['ip']==""){
 	   $service['ip'] = "localhost";
 	}
-	$data .= "<tr><td>" . $service['service'] . "</td><td>". $service['port'];
+	$data .= "<tr><td><a href=\"http://" . $service['ip'] . ":" . $service['port'] . "\">" . $service['service'] . "</a></td><td>". $service['port'];
+	// $data .= "<tr><td>" . $service['service'] . "</td><td>". $service['port'];
 
 	$fp = @fsockopen($service['ip'], $service['port'], $errno, $errstr, $timeout);
 	if (!$fp) {
