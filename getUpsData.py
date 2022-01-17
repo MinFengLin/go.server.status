@@ -8,8 +8,9 @@ import json
 import sys
 
 # only needed measurement
-measurements=["battery.charge","battery.voltage","battery.runtime","input.voltage","ups.load",
-              "ups.beeper.status", "ups.mfr","ups.model", "ups.serial", "ups.status", "ups.test.result"]
+measurements=["battery.charge", "battery.voltage", "battery.type", "battery.runtime",
+              "input.voltage",
+              "ups.load", "ups.beeper.status", "ups.mfr", "ups.model", "ups.serial", "ups.status", "ups.test.result"]
 
 def main():
     # if len(sys.argv) == 2:
