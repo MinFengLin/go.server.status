@@ -298,15 +298,15 @@ foreach ($ups_configs as $ups_config) {
     if ($ups_config['config']=="status") {
         if ($ups_config['value']=="OL" || $ups_config['value']=="OL CHRG") $battery_charging = true;
         if ($ups_config['value']=="OL") {
-            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td>穩定在線 - 已充飽</td></tr>";
+            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td><span class='badge badge-success'>" .$ups_config['value']. "</span> 穩定在線 - 已充飽</td></tr>";
         } elseif ($ups_config['value']=="OL CHRG") {
-            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td>穩定在線 - 充電中)</td></tr>";
+            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td><span class='badge badge-info'>" .$ups_config['value']. "</span> 穩定在線 - 充電中</td></tr>";
         } elseif ($ups_config['value']=="OB DISCHRG") {
-            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td>電池供應模式</td></tr>";
+            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td><span class='badge badge-primary'>" .$ups_config['value']. "</span> 電池供應模式</td></tr>";
         } elseif ($ups_config['value']=="LB") {
-            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td>電池供應模式 - 低電量</td></tr>";
+            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td><span class='badge badge-warning'>" .$ups_config['value']. "</span> 電池供應模式 - 低電量</td></tr>";
         } else {
-            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td>關閉中</td></tr>";
+            $data_ups .= "<tr><td>" . $ups_config['config_name'] . "</td><td><span class='badge badge-danger'>" .$ups_config['value']. "</span> 關閉中</td></tr>";
         }
     } elseif ($ups_config['config']=="charge") {
         if ($battery_charging == true) {
