@@ -394,6 +394,13 @@ $cache_mem = preg_split('/ +/', @exec('grep ^Cached /proc/meminfo'));
 
 $free_mem = $free_mem[1] + $cache_mem[1];
 
+// //Get disk info
+// $hdd_name= @exec(`smartctl -a /dev/hda -d ata | grep "Device Model" | awk '{print $3}'`);
+// $hdd_temp = @exec(`smartctl -a /dev/hda -d ata | grep "Airflow_Temperature_Cel" | awk '{print $10}'`);
+
+// echo $hdd_name;
+// echo $hdd_temp;
+// echo "123";
 
 //Get top mem usage
 $tom_mem_arr = array();
@@ -440,8 +447,8 @@ $data1 .= "<tr><td>Top RAM user    </td><td><small><pre class='mb-0 '><code>RSS 
 $data1 .= "<tr><td>Top CPU user    </td><td><small><pre class='mb-0 '><code>CPU COMMAND</code></pre>$top_cpu</small></td></tr>";
 
 $data1 .= "</table>";
-// $data1 .= '  </div></div>';
-$data1 .= '  </div>';
+$data1 .= '  </div></div>';
+// $data1 .= '  </div>';
 echo $data1;
 
 /* =============================================================================
@@ -451,8 +458,7 @@ echo $data1;
 * ===============================================================================s
 */
 
-
-if (!isset($_GET['showtraffic']) || $_GET['showtraffic'] ==  false) die();
+$traffic_default = "d";
 
 $data2 = "";
 $data2 .=  '
@@ -466,21 +472,25 @@ $data2 .=  '
 
 $data2 .="<span class=' d-block'><pre class='d-inline-block text-left'><small>";
 $traffic_arr = array();
-exec('vnstat -' . escapeshellarg( $_GET['showtraffic'] ), $traffic_arr, $status);
+if (!isset($_GET['showtraffic']) || $_GET['showtraffic'] ==  false) {
+    exec('/opt/bin/vnstat -' . $traffic_default, $traffic_arr, $status);
+} else {
+    exec('/opt/bin/vnstat -' . escapeshellarg( $_GET['showtraffic'] ), $traffic_arr, $status);
+}
 
 ///for testing
-$traffic = "
-enp0s20  /  monthly
-month        rx      |     tx      |    total    |   avg. rate
-------------------------+-------------+-------------+---------------
-Sep '18     36.60 GiB |    7.04 GiB |   43.64 GiB |  144.62 kbit/s
-Oct '18    400.69 GiB |    1.19 TiB |    1.58 TiB |    5.19 Mbit/s
-Nov '18    393.52 GiB |    2.19 TiB |    2.57 TiB |    8.72 Mbit/s
-Dec '18    507.28 GiB |    2.05 TiB |    2.55 TiB |    8.37 Mbit/s
-Jan '19    269.01 GiB |    1.39 TiB |    1.65 TiB |    7.51 Mbit/s
-------------------------+-------------+-------------+---------------
-estimated    371.92 GiB |    1.92 TiB |    2.29 TiB |
-";
+// $traffic = "
+// enp0s20  /  monthly
+// month        rx      |     tx      |    total    |   avg. rate
+// ------------------------+-------------+-------------+---------------
+// Sep '18     36.60 GiB |    7.04 GiB |   43.64 GiB |  144.62 kbit/s
+// Oct '18    400.69 GiB |    1.19 TiB |    1.58 TiB |    5.19 Mbit/s
+// Nov '18    393.52 GiB |    2.19 TiB |    2.57 TiB |    8.72 Mbit/s
+// Dec '18    507.28 GiB |    2.05 TiB |    2.55 TiB |    8.37 Mbit/s
+// Jan '19    269.01 GiB |    1.39 TiB |    1.65 TiB |    7.51 Mbit/s
+// ------------------------+-------------+-------------+---------------
+// estimated    371.92 GiB |    1.92 TiB |    2.29 TiB |
+// ";
 /// for real
 $traffic = implode("\n", $traffic_arr);
 
@@ -488,4 +498,4 @@ $data2 .="$traffic</small></pre></span>";
 
 echo $data2;
 ?>
-</div></html>
+</div></div></html>
