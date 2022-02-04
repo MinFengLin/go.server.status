@@ -152,11 +152,12 @@ $services[] = array("port" => "80",   "service" => "Mikrotik-RB750Gr3",         
 $services[] = array("port" => "80",   "service" => "HPE PoE Managed Switch",                       "ip" => "10.125.6.253", "other_cfg" => "") ;
 $services[] = array("port" => "80",   "service" => "4F AP: RT-n18u Asuswrt-Merlin",                "ip" => "10.125.6.252", "other_cfg" => "") ;
 $services[] = array("port" => "80",   "service" => "2F AP: Xiaomi Mi AX3600",                      "ip" => "10.125.6.251", "other_cfg" => "") ;
+$services[] = array("port" => "7050", "service" => "監視器中控系統 (KVM - SurveillanceStation)",    "ip" => "",             "other_cfg" => "webman/3rdparty/SurveillanceStation") ;
 $services[] = array("port" => "80",   "service" => "HIKVISION 監視器",                             "ip" => "10.125.6.246", "other_cfg" => "") ;
-$services[] = array("port" => "7050", "service" => "監視器影片存檔區 (KVM - SurveillanceStation)", "ip" => "",             "other_cfg" => "webman/3rdparty/SurveillanceStation") ;
+$services[] = array("port" => "7050", "service" => "監視器影片存檔區",                              "ip" => "",             "other_cfg" => "fsdownload/fyRdw1F0A/Home") ;
 $services[] = array("port" => "7050", "service" => "Synology NAS DSM",                             "ip" => "",             "other_cfg" => "") ;
 $services[] = array("port" => "3000", "service" => "Gitea",                                        "ip" => "",             "other_cfg" => "") ;
-$services[] = array("port" => "80",   "service" => "IoT: 加壓馬達",                                "ip" => "10.125.6.175", "other_cfg" => "") ;
+$services[] = array("port" => "80",   "service" => "IoT: 加壓馬達",                                 "ip" => "10.125.6.175", "other_cfg" => "") ;
 $services[] = array("port" => "53",   "service" => "(Google DNS)Internet Connection",              "ip" => "8.8.8.8",      "other_cfg" => "") ;
 
 http://10.125.6.250:7050/webman/3rdparty/SurveillanceStation/
