@@ -16,10 +16,12 @@ func main() {
 	// iotservice_data data type =  iotservice.IoTservices_slice
 	iotservice_data := iotservice.Parser_iotservice()
 	// DEBUG_USE:fmt.Printf("%+v\n", iotservice_data)
+	homeservice_data := iotservice.Parser_homeservices()
 
 	server.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"IoTservices": iotservice_data.IoTservices,
+			"IoTservices":  iotservice_data.IoTservices,
+			"Homeservices": homeservice_data.Homeservices,
 		})
 	})
 

@@ -36,7 +36,7 @@ pre code {
   <div class="card mb-3 mx-auto" style="max-width: 540px;">
       <div class="row align-items-center g-0">
           <div class="col-md-4">
-            <img src="Img/Lin-qrcode.png" alt="Lin-home_Wi-Fi" class="img-thumbnail">
+            <img src="/Img/Lin-qrcode.png" alt="Lin-home_Wi-Fi" class="img-thumbnail">
           </div>
           <div class="col-md-8">
               <div class="card-body">
@@ -73,7 +73,7 @@ pre code {
     <div class="card-body pb-0">
         <small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Status</th><th>Control</th></tr></thead>
             {{ range $IoTservice := .IoTservices }}
-                {{if eq .Power "OFF" }}
+                {{ if eq .Power "OFF" }}
                     <tr>
                         <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'><strong>Working</strong>
                         </td>
@@ -85,6 +85,35 @@ pre code {
                         <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-danger'><strong>Shutdown</strong>
                         </td>
                         <td><a class='btn btn-primary' role='button' href="http://{{ .Ip }}/cm?cmnd=Power%20On\">Open</a>
+                        </td>
+                    </tr>
+                {{end}}
+            {{end}}
+        </table></small>
+    </div>
+</div>
+<div class="card my-2">
+    <h4 class="card-header text-center">
+        Service status
+    </h4>
+    <div class="card-body pb-0">
+        <small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Status</th></tr></thead>
+            {{ range $Homeservice := .Homeservices }}
+                {{ if ne  .Port "53" }}
+                    {{ if eq .Other_cfg "" }}
+                        <tr>
+                            <td><a href="http://{{ .Ip }}:{{ .Port }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'>Status
+                            </td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <td><a href="http://{{ .Ip }}:{{ .Port }}/{{ .Other_cfg }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'>Status
+                            </td>
+                        </tr>
+                    {{end}}
+                {{else}}
+                    <tr>
+                        <td><strong>{{ .Service }}</strong></td><td class='table-success'>Status
                         </td>
                     </tr>
                 {{end}}

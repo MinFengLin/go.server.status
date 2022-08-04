@@ -10,5 +10,74 @@
             "Ip":      "192.168.1.2",
             "Power":   "ON"
         }
+    ],
+    "j_Homeservices": [
+        {
+            "Service":   "Mikrotik-RB750Gr3",
+            "Ip":        "10.125.6.254",
+            "Port":      "80",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "HPE PoE Managed Switch",
+            "Ip":        "10.125.6.253",
+            "Port":      "80",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "4F AP: RT-n18u Asuswrt-Merlin",
+            "Ip":        "10.125.6.252",
+            "Port":      "80",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "2F AP: Xiaomi Mi AX3600",
+            "Ip":        "10.125.6.251",
+            "Port":      "80",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "監視器中控系統 (KVM - SurveillanceStation)",
+            "Ip":        "",
+            "Port":      "7050",
+            "Other_cfg": "webman/3rdparty/SurveillanceStation"
+        },
+        {
+            "Service":   "HIKVISION 監視器",
+            "Ip":        "10.125.6.246",
+            "Port":      "80",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "監視器影片存檔區",
+            "Ip":        "10.125.6.250",
+            "Port":      "7050",
+            "Other_cfg": "fsdownload/fyRdw1F0A/Home"
+        },
+        {
+            "Service":   "Synology NAS DSM",
+            "Ip":        "10.125.6.250",
+            "Port":      "7050",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "Gitea",
+            "Ip":        "10.125.6.250",
+            "Port":      "3000",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "IoT: 加壓馬達",
+            "Ip":        "10.125.6.175",
+            "Port":      "80",
+            "Other_cfg": ""
+        },
+        {
+            "Service":   "(Google DNS)Internet Connection",
+            "Ip":        "8.8.8.8",
+            "Port":      "53",
+            "Other_cfg": ""
+        }
     ]
+
 }

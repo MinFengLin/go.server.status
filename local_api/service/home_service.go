@@ -9,23 +9,18 @@ import (
 
 // https://stackoverflow.com/questions/64693710/parse-json-file-in-golang
 
-type IoTservices_slice struct {
-	IoTservices []IoTservices `json:"j_IoTservices"`
+type Homeservices_slice struct {
+	Homeservices []Homeservices `json:"j_Homeservices"`
 }
 
-type IoTservices struct {
-	Ip      string `json:"Ip"`
-	Service string `json:"Service"`
-	Power   string `json:"Power"`
-
-	// Request Request `json:"request"`
+type Homeservices struct {
+	Ip        string `json:"Ip"`
+	Service   string `json:"Service"`
+	Port      string `json:"Port"`
+	Other_cfg string `json:"Other_cfg"`
 }
 
-// type Request struct {
-// 	Method string `json:"method"`
-// }
-
-func Parser_iotservice() IoTservices_slice {
+func Parser_homeservices() Homeservices_slice {
 
 	filename := "./local_api/service_data.json"
 	jsonFile, err := os.Open(filename)
@@ -39,7 +34,7 @@ func Parser_iotservice() IoTservices_slice {
 		fmt.Printf("failed to read json file, error: %v", err)
 	}
 
-	data := IoTservices_slice{}
+	data := Homeservices_slice{}
 	if err := json.Unmarshal(jsonData, &data); err != nil {
 		fmt.Printf("failed to unmarshal json file, error: %v", err)
 	}
