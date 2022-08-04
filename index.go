@@ -12,6 +12,7 @@ import (
 func main() {
 	server := gin.Default()
 	server.LoadHTMLFiles("index.html")
+	server.Static("/Img_dir", "./Img")
 
 	// iotservice_data data type =  iotservice.IoTservices_slice
 	iotservice_data := iotservice.Parser_iotservice()
@@ -25,5 +26,5 @@ func main() {
 		})
 	})
 
-	log.Fatal(server.Run(":8222"))
+	log.Fatal(server.Run(":80"))
 }

@@ -38,7 +38,7 @@
         },
         {
             "Service":   "監視器中控系統 (KVM - SurveillanceStation)",
-            "Ip":        "",
+            "Ip":        "10.125.6.250",
             "Port":      "7050",
             "Other_cfg": "webman/3rdparty/SurveillanceStation"
         },
