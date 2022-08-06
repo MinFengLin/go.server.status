@@ -102,19 +102,24 @@ pre code {
                 {{ if ne  .Port "53" }}
                     {{ if eq .Other_cfg "" }}
                         <tr>
-                            <td><a href="http://{{ .Ip }}:{{ .Port }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'>Status
-                            </td>
-                        </tr>
+                            <td><a href="http://{{ .Ip }}:{{ .Port }}"><strong>{{ .Service }}</strong></a></td>
                     {{else}}
                         <tr>
-                            <td><a href="http://{{ .Ip }}:{{ .Port }}/{{ .Other_cfg }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'>Status
-                            </td>
-                        </tr>
+                            <td><a href="http://{{ .Ip }}:{{ .Port }}/{{ .Other_cfg }}"><strong>{{ .Service }}</strong></a></td>
                     {{end}}
+                    {{ if eq .Status "Online" }}
+                            <td class='table-success'>{{ .Status }}</td>
+                    {{else}}
+                            <td class='table-danger'>{{ .Status }}</td>
+                    {{end}}
+                        </tr>
                 {{else}}
                     <tr>
-                        <td><strong>{{ .Service }}</strong></td><td class='table-success'>Status
-                        </td>
+                        {{ if eq .Status "Online" }}
+                            <td><strong>{{ .Service }}</strong></td><td class='table-success'>{{ .Status }}</td>
+                        {{else}}
+                            <td><strong>{{ .Service }}</strong></td><td class='table-danger'>{{ .Status }}</td>
+                        {{end}}
                     </tr>
                 {{end}}
             {{end}}

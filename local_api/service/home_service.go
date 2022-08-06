@@ -18,6 +18,7 @@ type Homeservices struct {
 	Service   string `json:"Service"`
 	Port      string `json:"Port"`
 	Other_cfg string `json:"Other_cfg"`
+	Status    string `json:"Status"`
 }
 
 func Parser_homeservices() Homeservices_slice {
