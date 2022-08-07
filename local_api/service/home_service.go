@@ -39,7 +39,7 @@ func Check_status(ii int, time_set int, homeservice_data *Homeservices_slice) {
 
 func Parser_homeservices() Homeservices_slice {
 
-	filename := "./local_api/service_data.json"
+	filename := "./local_api/json/service_data.json"
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("failed to open json file: %s, error: %v", filename, err)

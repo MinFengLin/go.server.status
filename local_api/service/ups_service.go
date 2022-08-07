@@ -47,7 +47,7 @@ type UPS_Beeper_s struct {
 
 func Parser_upsinfo() UpsInfo {
 
-	filename := "./local_api/go_ups_data.json"
+	filename := "./local_api/json/go_ups_data.json"
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("failed to open json file: %s, error: %v", filename, err)
