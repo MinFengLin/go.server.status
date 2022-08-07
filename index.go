@@ -49,14 +49,11 @@ func ticker_update(time_set int) {
 	}()
 }
 
-func main() {
+func server_run() {
 	server := gin.Default()
 	server.LoadHTMLFiles("index.html")
 	server.Static("/Img", "./Img_dir")
 	server.Static("/css", "./css_dir")
-	// update at first
-	update_data()
-	ticker_update(10) // time(sec)
 
 	server.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
@@ -67,4 +64,13 @@ func main() {
 	})
 
 	log.Fatal(server.Run(":80"))
+}
+
+func main() {
+	// load data at first
+	update_data()
+	// set ticker to update data
+	ticker_update(10) // time(sec)
+
+	server_run()
 }
