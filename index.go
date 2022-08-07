@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"fmt"
 
 	apiservice "service"
 
@@ -13,6 +14,7 @@ import (
 var (
 	iotservice_data apiservice.IoTservices_slice
 	homeservice_data apiservice.Homeservices_slice
+	upsinfo_data apiservice.UpsInfo_slice
 )
 
 func update_data() {
@@ -20,6 +22,8 @@ func update_data() {
 	iotservice_data = apiservice.Parser_iotservice()
 	// DEBUG_USE:fmt.Printf("%+v\n", iotservice_data)
 	homeservice_data = apiservice.Parser_homeservices()
+	upsinfo_data = apiservice.Parser_upsinfo()
+	fmt.Printf("%+v\n", upsinfo_data)
 
 	// var homeservice_data_swap
 
@@ -58,6 +62,7 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"IoTservices":  iotservice_data.IoTservices,
 			"Homeservices": homeservice_data.Homeservices,
+			"Upsinfo": upsinfo_data,
 		})
 	})
 

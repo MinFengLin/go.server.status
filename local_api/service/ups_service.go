@@ -11,7 +11,7 @@ import (
 // http://puremonkey2010.blogspot.com/2020/11/parsing-json-files-with-golang.html read
 
 // Start -  json struct
-type UpsInfo struct {
+type UpsInfo_slice struct {
 	Battery     Battery_s `json:"battery"`
 	Input       Input_s   `json:"input"`
 	Upsfullinfo Ups_s     `json:"ups"`
@@ -35,17 +35,21 @@ type Ups_s struct {
 	Model  string       `json:"model"`
 	Serial string       `json:"serial"`
 	Status string       `json:"status"`
-	Test   string       `json:"test"`
+	Test   UPS_Test_r   `json:"test"`
 }
 
 type UPS_Beeper_s struct {
-	Voltage string `json:"status"`
+	Status string `json:"status"`
+}
+
+type UPS_Test_r struct {
+	Result string `json:"result"`
 }
 // End -  json struct
 
 // TODO: (down) not check if it correct
 
-func Parser_upsinfo() UpsInfo {
+func Parser_upsinfo() UpsInfo_slice {
 
 	filename := "./local_api/json/go_ups_data.json"
 	jsonFile, err := os.Open(filename)
@@ -59,7 +63,7 @@ func Parser_upsinfo() UpsInfo {
 		fmt.Printf("failed to read json file, error: %v", err)
 	}
 
-	data := UpsInfo{}
+	data := UpsInfo_slice{}
 	if err := json.Unmarshal(jsonData, &data); err != nil {
 		fmt.Printf("failed to unmarshal json file, error: %v", err)
 	}
