@@ -1,1 +1,48 @@
-{"battery": {"charge": {"value": "100"}, "runtime": {"value": "4560"}, "type": {"value": "PbAcid"}, "voltage": {"value": "16.0"}}, "input": {"voltage": {"value": "117.0"}}, "ups": {"beeper": {"status": {"value": "disabled"}}, "load": {"value": "6"}, "mfr": {"value": "CPS"}, "model": {"value": "CP1000PFCLCD"}, "serial": {"value": "000000000000"}, "status": {"value": "OL"}, "test": {"result": {"value": "No test initiated"}}}}
+{
+    "battery": {
+        "charge": {
+            "value": "100"
+        },
+        "runtime": {
+            "value": "4560"
+        },
+        "type": {
+            "value": "PbAcid"
+        },
+        "voltage": {
+            "value": "16.0"
+        }
+    },
+    "input": {
+        "voltage": {
+            "value": "117.0"
+        }
+    },
+    "ups": {
+        "beeper": {
+            "status": {
+                "value": "disabled"
+            }
+        },
+        "load": {
+            "value": "6"
+        },
+        "mfr": {
+            "value": "CPS"
+        },
+        "model": {
+            "value": "CP1000PFCLCD"
+        },
+        "serial": {
+            "value": "000000000000"
+        },
+        "status": {
+            "value": "OL"
+        },
+        "test": {
+            "result": {
+                "value": "No test initiated"
+            }
+        }
+    }
+}

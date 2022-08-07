@@ -1,0 +1,24 @@
+{
+    "battery": {
+        "charge": "100",
+        "runtime": "4530",
+        "type": "PbAcid",
+        "voltage": "16.0"
+    },
+    "input": {
+        "voltage": "115.0"
+    },
+    "ups": {
+        "beeper": {
+            "status": "disabled"
+        },
+        "load": "6",
+        "mfr": "CPS",
+        "model": "CP1000PFCLCD",
+        "serial": "000000000000",
+        "status": "OL",
+        "test": {
+            "result": "No test initiated"
+        }
+    }
+}

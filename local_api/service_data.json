@@ -2,93 +2,92 @@
     "j_IoTservices": [
         {
             "Service": "Author1",
-            "Ip":      "192.168.1.1",
-            "Power":   "OFF"
+            "Ip": "192.168.1.1",
+            "Power": "OFF"
         },
         {
             "Service": "Author2",
-            "Ip":      "192.168.1.2",
-            "Power":   "ON"
+            "Ip": "192.168.1.2",
+            "Power": "ON"
         }
     ],
     "j_Homeservices": [
         {
-            "Service":   "Mikrotik-RB750Gr3",
-            "Ip":        "10.125.6.254",
-            "Port":      "80",
+            "Service": "Mikrotik-RB750Gr3",
+            "Ip": "10.125.6.254",
+            "Port": "80",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "HPE12 PoE Managed Switch",
-            "Ip":        "10.125.6.253",
-            "Port":      "80",
+            "Service": "HPE12 PoE Managed Switch",
+            "Ip": "10.125.6.253",
+            "Port": "80",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "4F AP: RT-n18u Asuswrt-Merlin",
-            "Ip":        "10.125.6.252",
-            "Port":      "80",
+            "Service": "4F AP: RT-n18u Asuswrt-Merlin",
+            "Ip": "10.125.6.252",
+            "Port": "80",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "2F AP: Xiaomi Mi AX3600",
-            "Ip":        "10.125.6.251",
-            "Port":      "80",
+            "Service": "2F AP: Xiaomi Mi AX3600",
+            "Ip": "10.125.6.251",
+            "Port": "80",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "監視器中控系統 (KVM - SurveillanceStation)",
-            "Ip":        "10.125.6.250",
-            "Port":      "7050",
+            "Service": "監視器中控系統 (KVM - SurveillanceStation)",
+            "Ip": "10.125.6.250",
+            "Port": "7050",
             "Other_cfg": "webman/3rdparty/SurveillanceStation",
             "Status": ""
         },
         {
-            "Service":   "HIKVISION 監視器",
-            "Ip":        "10.125.6.246",
-            "Port":      "80",
+            "Service": "HIKVISION 監視器",
+            "Ip": "10.125.6.246",
+            "Port": "80",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "監視器影片存檔區",
-            "Ip":        "10.125.6.250",
-            "Port":      "7050",
+            "Service": "監視器影片存檔區",
+            "Ip": "10.125.6.250",
+            "Port": "7050",
             "Other_cfg": "fsdownload/fyRdw1F0A/Home",
             "Status": ""
         },
         {
-            "Service":   "Synology NAS DSM",
-            "Ip":        "10.125.6.250",
-            "Port":      "7050",
+            "Service": "Synology NAS DSM",
+            "Ip": "10.125.6.250",
+            "Port": "7050",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "Gitea",
-            "Ip":        "10.125.6.250",
-            "Port":      "3000",
+            "Service": "Gitea",
+            "Ip": "10.125.6.250",
+            "Port": "3000",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "IoT: 加壓馬達",
-            "Ip":        "10.125.6.175",
-            "Port":      "80",
+            "Service": "IoT: 加壓馬達",
+            "Ip": "10.125.6.175",
+            "Port": "80",
             "Other_cfg": "",
             "Status": ""
         },
         {
-            "Service":   "(Google DNS)Internet Connection",
-            "Ip":        "8.8.8.8",
-            "Port":      "53",
+            "Service": "(Google DNS)Internet Connection",
+            "Ip": "8.8.8.8",
+            "Port": "53",
             "Other_cfg": "",
             "Status": ""
         }
     ]
-
 }
