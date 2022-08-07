@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"net"
+	"time"
 )
 
 // https://stackoverflow.com/questions/64693710/parse-json-file-in-golang
@@ -19,6 +21,20 @@ type Homeservices struct {
 	Port      string `json:"Port"`
 	Other_cfg string `json:"Other_cfg"`
 	Status    string `json:"Status"`
+}
+
+func Check_status(ii int, time_set int, homeservice_data *Homeservices_slice) {
+	withtimeout := net.Dialer{Timeout: time.Duration(time_set)*time.Millisecond}
+	conn, err := withtimeout.Dial("tcp", homeservice_data.Homeservices[ii].Ip+":"+homeservice_data.Homeservices[ii].Port)
+
+	if err != nil {
+		homeservice_data.Homeservices[ii].Status = "Offline"
+		fmt.Print("%s\n", homeservice_data.Homeservices[ii].Status)
+	} else {
+		homeservice_data.Homeservices[ii].Status = "Online"
+		fmt.Print("%s\n", homeservice_data.Homeservices[ii].Status)
+		defer conn.Close()
+	}
 }
 
 func Parser_homeservices() Homeservices_slice {
