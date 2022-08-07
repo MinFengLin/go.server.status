@@ -47,13 +47,29 @@ func update_data() {
 	}
 }
 
+func ticker_update(time_set int) {
+	ticker := time.NewTicker(time.Duration(time_set) * time.Second)
+
+	go func() {
+		for {
+			select {
+		 		case <- ticker.C:
+					update_data()
+			}
+		}
+	}()
+}
+
 func main() {
 	server := gin.Default()
 	server.LoadHTMLFiles("index.html")
-	server.Static("/Img_dir", "./Img")
+	server.Static("/Img", "./Img_dir")
+	server.Static("/css", "./css_dir")
+	// update at first
+	update_data()
+	ticker_update(10) // time(sec)
 
 	server.GET("/", func(c *gin.Context) {
-		go update_data()
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"IoTservices":  iotservice_data.IoTservices,
 			"Homeservices": homeservice_data.Homeservices,

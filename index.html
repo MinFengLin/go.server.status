@@ -14,16 +14,10 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2786/2786366.png">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <style>
-pre {
-    overflow-x: auto;
-    max-width: 60vw;
-}
-
-pre code {
-    word-wrap: normal;
-    white-space: pre;
-}
+    <style type="text/css" media="screen">
+        <!-- 
+            @import url("/css/org.css");
+        -->
     </style>
 </head>
 
@@ -80,15 +74,15 @@ pre code {
                         <td><a class='btn btn-danger' role='button' href="http://{{ .Ip }}/cm?cmnd=Power%20Off">Close</a>
                         </td>
                     </tr>
-                {{else}}
+                {{ else }}
                     <tr>
                         <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-danger'><strong>Shutdown</strong>
                         </td>
                         <td><a class='btn btn-primary' role='button' href="http://{{ .Ip }}/cm?cmnd=Power%20On\">Open</a>
                         </td>
                     </tr>
-                {{end}}
-            {{end}}
+                {{ end }}
+            {{ end }}
         </table></small>
     </div>
 </div>
@@ -103,26 +97,30 @@ pre code {
                     {{ if eq .Other_cfg "" }}
                         <tr>
                             <td><a href="http://{{ .Ip }}:{{ .Port }}"><strong>{{ .Service }}</strong></a></td>
-                    {{else}}
+                    {{ else }}
                         <tr>
                             <td><a href="http://{{ .Ip }}:{{ .Port }}/{{ .Other_cfg }}"><strong>{{ .Service }}</strong></a></td>
-                    {{end}}
+                    {{ end }}
                     {{ if eq .Status "Online" }}
-                            <td class='table-success'>{{ .Status }}</td>
-                    {{else}}
-                            <td class='table-danger'>{{ .Status }}</td>
-                    {{end}}
+                        <td class='table-success'>{{ .Status }}</td>
+                    {{ else if eq .Status "Offline"}}
+                        <td class='table-danger'>{{ .Status }}</td>
+                    {{ else }}
+                        <td class='table-danger'>Checking...</td>
+                    {{ end }}
                         </tr>
-                {{else}}
+                {{ else }}
                     <tr>
                         {{ if eq .Status "Online" }}
                             <td><strong>{{ .Service }}</strong></td><td class='table-success'>{{ .Status }}</td>
-                        {{else}}
+                        {{ else if eq .Status "Offline" }}
                             <td><strong>{{ .Service }}</strong></td><td class='table-danger'>{{ .Status }}</td>
-                        {{end}}
+                        {{ else }}
+                            <td><strong>{{ .Service }}</strong></td><td class='table-danger'>Checking...</td>
+                        {{ end }}
                     </tr>
-                {{end}}
-            {{end}}
+                {{ end }}
+            {{ end }}
         </table></small>
     </div>
 </div>
