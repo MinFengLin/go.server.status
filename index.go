@@ -5,10 +5,12 @@ import (
 	"net/http"
 	"time"
 	"fmt"
+	"os"
 
 	apiservice "service"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 var (
@@ -55,9 +57,15 @@ func server_run() {
 	server.Static("/Img", "./Img_dir")
 	server.Static("/css", "./css_dir")
 
+	err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
 	server.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"IoTservices":  iotservice_data.IoTservices,
+			"Qrcodeurl": apiservice.Parser_wifiqrcode(os.Getenv("SSID"), os.Getenv("ENC"), os.Getenv("WIFIPWD")),
+			"IoTservices": iotservice_data.IoTservices,
 			"Homeservices": homeservice_data.Homeservices,
 			"Upsinfo": upsinfo_data,
 		})

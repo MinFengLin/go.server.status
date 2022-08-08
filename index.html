@@ -30,15 +30,15 @@
   <div class="card mb-3 mx-auto" style="max-width: 540px;">
       <div class="row align-items-center g-0">
           <div class="col-md-4">
-            <img src="/Img/Lin-qrcode.png" alt="Lin-home_Wi-Fi" class="img-thumbnail">
+            <iframe src="{{ .Qrcodeurl.URL }}" alt="Lin-home_Wi-Fi" class="img-thumbnail"></iframe>
           </div>
           <div class="col-md-8">
               <div class="card-body">
                   <h5 class="card-title">網路名稱: </h5>
-                  <p class="card-text">Lin</p>
+                  <p class="card-text">{{ .Qrcodeurl.SSID }}</p>
                   <hr>
                   <h5 class="card-title">密碼: </h5>
-                  <p class="card-text">26277050</p>
+                  <p class="card-text">{{ .Qrcodeurl.WIFIPWD }}</p>
               </div>
           </div>
           <hr>
@@ -138,4 +138,12 @@
 <strong>{{ .Upsinfo.Upsfullinfo.Serial }}</strong><br>
 <strong>{{ .Upsinfo.Upsfullinfo.Status }}</strong><br>
 <strong>{{ .Upsinfo.Upsfullinfo.Test.Result }}</strong>
+
+<!-- wpa wpa2-->
+<iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3AWPA%3BP%3A26277050%3B%3B&size=150"></iframe>
+<!-- wep-->
+<iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3AWEP%3BP%3A26277050%3B%3B&size=150"></iframe>
+<!-- none-->
+<iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3A%3BP%3A%3B%3B&size=150"></iframe>
+
 <!-- End - Home Service -->
