@@ -28,22 +28,19 @@ type Input_s struct {
 	Voltage string `json:"voltage"`
 }
 // UPS full info
+// https://github.com/bemasher/JSONGen
 type Ups_s struct {
-	Beeper UPS_Beeper_s `json:"beeper"`
+	Beeper struct {
+		Status string `json:"status"`
+	} `json:"beeper"`
 	Load   string       `json:"load"`
 	Mfr    string       `json:"mfr"`
 	Model  string       `json:"model"`
 	Serial string       `json:"serial"`
 	Status string       `json:"status"`
-	Test   UPS_Test_r   `json:"test"`
-}
-
-type UPS_Beeper_s struct {
-	Status string `json:"status"`
-}
-
-type UPS_Test_r struct {
-	Result string `json:"result"`
+	Test   struct {
+		Result string `json:"result"`
+	} `json:"test"`
 }
 // End -  json struct
 
