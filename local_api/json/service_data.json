@@ -1,14 +1,10 @@
 {
     "j_IoTservices": [
         {
-            "Service": "Author1",
-            "Ip": "192.168.1.1",
-            "Power": "OFF"
-        },
-        {
-            "Service": "Author2",
-            "Ip": "192.168.1.2",
-            "Power": "ON"
+            "Service": "加壓馬達",
+            "Ip": "10.125.6.175",
+            "Other_cfg": "cm?cmnd=Power",
+            "Status": ""
         }
     ],
     "j_Homeservices": [

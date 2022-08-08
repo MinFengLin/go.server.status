@@ -67,18 +67,18 @@
     <div class="card-body pb-0">
         <small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Status</th><th>Control</th></tr></thead>
             {{ range $IoTservice := .IoTservices }}
-                {{ if eq .Power "OFF" }}
+                {{ if eq .Status "ON" }}
                     <tr>
                         <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'><strong>Working</strong>
                         </td>
-                        <td><a class='btn btn-danger' role='button' href="http://{{ .Ip }}/cm?cmnd=Power%20Off">Close</a>
+                        <td><a class='btn btn-danger' role='button' href="http://{{ .Ip }}/{{ .Other_cfg }}%20Off">Close</a>
                         </td>
                     </tr>
                 {{ else }}
                     <tr>
                         <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-danger'><strong>Shutdown</strong>
                         </td>
-                        <td><a class='btn btn-primary' role='button' href="http://{{ .Ip }}/cm?cmnd=Power%20On\">Open</a>
+                        <td><a class='btn btn-primary' role='button' href="http://{{ .Ip }}/{{ .Other_cfg }}%20On">Open</a>
                         </td>
                     </tr>
                 {{ end }}
@@ -114,11 +114,11 @@
                 {{ else }}
                     <tr>
                         {{ if eq .Status "Online" }}
-                            <td><strong>{{ .Service }}</strong></td><td>N/A</td><td class='table-success'>{{ .Status }}</td>
+                            <td><strong>{{ .Service }}</strong></td><td>53</td><td class='table-success'>{{ .Status }}</td>
                         {{ else if eq .Status "Offline" }}
-                            <td><strong>{{ .Service }}</strong></td><td>N/A</td><td class='table-danger'>{{ .Status }}</td>
+                            <td><strong>{{ .Service }}</strong></td><td>53</td><td class='table-danger'>{{ .Status }}</td>
                         {{ else }}
-                            <td><strong>{{ .Service }}</strong></td><td>N/A</td><td class='table-danger'>Checking...</td>
+                            <td><strong>{{ .Service }}</strong></td><td>53</td><td class='table-danger'>Checking...</td>
                         {{ end }}
                     </tr>
                 {{ end }}
