@@ -21,12 +21,12 @@ type UpsInfo_slice struct {
 	Input   struct {
 		Voltage string `json:"voltage"`
 	} `json:"input"`
-	Upsfullinfo Upsfullinfo `json:"ups"`
+	Upsfullinfo Upsfullinfo_s `json:"ups"`
 }
 
 // UPS full info
 // https://github.com/bemasher/JSONGen
-type Upsfullinfo struct {
+type Upsfullinfo_s struct {
 	Beeper struct {
 		Status string `json:"status"`
 	} `json:"beeper"`

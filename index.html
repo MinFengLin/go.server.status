@@ -95,7 +95,7 @@
     <div class="card-body pb-0">
         <small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Port</th><th>Status</th></tr></thead>
             {{ range $Homeservice := .Homeservices }}
-                {{ if ne  .Port "53" }}
+                {{ if ne .Port "53" }}
                     {{ if eq .Other_cfg "" }}
                         <tr>
                             <td><a href="http://{{ .Ip }}:{{ .Port }}"><strong>{{ .Service }}</strong></a></td><td>{{ .Port }}</td>
@@ -135,16 +135,29 @@
   <div class="card-body"> -->
     <table class='table table-sm mb-0'>
         {{ if eq .Upsinfo.Upsfullinfo.Status "OL" }}
-            <tr><td>Status</td><td><span class='badge badge-success'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 已充飽</td></tr>
+            <tr><td>狀態</td><td><span class='badge badge-success'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 已充飽</td></tr>
+            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-charging' viewBox='0 0 16 16'><path d='M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z'/><path d='M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/><path d='M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z'/><path d='M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
         {{ else if eq .Upsinfo.Upsfullinfo.Status "OL CHRG" }}
-            <tr><td>Status</td><td><span class='badge badge-info'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 充電中</td></tr>
+            <tr><td>狀態</td><td><span class='badge badge-info'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 充電中</td></tr>
+            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-charging' viewBox='0 0 16 16'><path d='M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z'/><path d='M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/><path d='M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z'/><path d='M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
         {{ else if eq .Upsinfo.Upsfullinfo.Status "OB DISCHRG" }}
-            <tr><td>Status</td><td><span class='badge badge-primary'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式</td></tr>
+            <tr><td>狀態</td><td><span class='badge badge-primary'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式</td></tr>
+            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery' viewBox='0 0 16 16'><path d='M0 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6zm2-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2zm14 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
         {{ else if eq .Upsinfo.Upsfullinfo.Status "LB" }}
-            <tr><td>Status</td><td><span class='badge badge-warning'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式 - 低電量</td></tr>
+            <tr><td>狀態</td><td><span class='badge badge-warning'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式 - 低電量</td></tr>
+            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-full' viewBox='0 0 16 16'><path d='M2 6h10v4H2V6z'/><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
         {{ else }}
-            <tr><td>Status</td><td><span class='badge badge-danger'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 關閉中</td></tr>
+            <tr><td>狀態</td><td><span class='badge badge-danger'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 關閉中</td></tr>
+            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-half' viewBox='0 0 16 16'><path d='M2 6h5v4H2V6z'/><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
         {{ end }}
+                <div class="col p-0 d-inline-flex">
+                <span class="mr-2"><span class="badge badge-secondary">{{ .Upsinfo.Battery.Type }}</span></span>
+                    <div class="progress flex-grow-1 align-self-center">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}" role="progressbar" style="width:{{ .Upsinfo.Battery.Charge }}%;" aria-valuenow="{{ .Upsinfo.Battery.Charge }}" aria-valuemin="0" aria-valuemax="100">{{ .Upsinfo.Battery.Charge }}%</div>
+                    </div>
+                </div>
+            </td></tr>
+        
         <strong>{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}</strong>
     </table>
 <!-- End - UPS Information -->
