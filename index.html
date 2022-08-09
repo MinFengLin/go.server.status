@@ -128,43 +128,52 @@
 </div>
 <!-- End - Home Service -->
 <!-- UPS Information -->
-<!-- <div class="card mb-2">
+<div class="card mb-2">
   <h4 class="card-header text-center">
     UPS information
   </h4>
-  <div class="card-body"> -->
+  <div class="card-body">
     <table class='table table-sm mb-0'>
-        {{ if eq .Upsinfo.Upsfullinfo.Status "OL" }}
-            <tr><td>狀態</td><td><span class='badge badge-success'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 已充飽</td></tr>
-            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-charging' viewBox='0 0 16 16'><path d='M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z'/><path d='M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/><path d='M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z'/><path d='M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
-        {{ else if eq .Upsinfo.Upsfullinfo.Status "OL CHRG" }}
-            <tr><td>狀態</td><td><span class='badge badge-info'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 充電中</td></tr>
-            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-charging' viewBox='0 0 16 16'><path d='M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z'/><path d='M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/><path d='M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z'/><path d='M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
-        {{ else if eq .Upsinfo.Upsfullinfo.Status "OB DISCHRG" }}
-            <tr><td>狀態</td><td><span class='badge badge-primary'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式</td></tr>
-            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery' viewBox='0 0 16 16'><path d='M0 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6zm2-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2zm14 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
-        {{ else if eq .Upsinfo.Upsfullinfo.Status "LB" }}
-            <tr><td>狀態</td><td><span class='badge badge-warning'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式 - 低電量</td></tr>
-            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-full' viewBox='0 0 16 16'><path d='M2 6h10v4H2V6z'/><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
-        {{ else }}
-            <tr><td>狀態</td><td><span class='badge badge-danger'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 關閉中</td></tr>
-            <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-half' viewBox='0 0 16 16'><path d='M2 6h5v4H2V6z'/><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
-        {{ end }}
-                <div class="col p-0 d-inline-flex">
-                <span class="mr-2"><span class="badge badge-secondary">{{ .Upsinfo.Battery.Type }}</span></span>
-                    <div class="progress flex-grow-1 align-self-center">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}" role="progressbar" style="width:{{ .Upsinfo.Battery.Charge }}%;" aria-valuenow="{{ .Upsinfo.Battery.Charge }}" aria-valuemin="0" aria-valuemax="100">{{ .Upsinfo.Battery.Charge }}%</div>
-                    </div>
+    {{ if eq .Upsinfo.Upsfullinfo.Status "OL" }}
+        <tr><td>狀態</td><td><span class='badge badge-success'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 已充飽</td></tr>
+        <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-charging' viewBox='0 0 16 16'><path d='M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z'/><path d='M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/><path d='M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z'/><path d='M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
+    {{ else if eq .Upsinfo.Upsfullinfo.Status "OL CHRG" }}
+        <tr><td>狀態</td><td><span class='badge badge-info'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 充電中</td></tr>
+        <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-charging' viewBox='0 0 16 16'><path d='M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z'/><path d='M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/><path d='M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z'/><path d='M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
+    {{ else if eq .Upsinfo.Upsfullinfo.Status "OB DISCHRG" }}
+        <tr><td>狀態</td><td><span class='badge badge-primary'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式</td></tr>
+        <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery' viewBox='0 0 16 16'><path d='M0 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6zm2-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2zm14 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
+    {{ else if eq .Upsinfo.Upsfullinfo.Status "LB" }}
+        <tr><td>狀態</td><td><span class='badge badge-warning'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式 - 低電量</td></tr>
+        <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-full' viewBox='0 0 16 16'><path d='M2 6h10v4H2V6z'/><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
+    {{ else }}
+        <tr><td>狀態</td><td><span class='badge badge-danger'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 關閉中</td></tr>
+        <tr><td>電池電量 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-battery-half' viewBox='0 0 16 16'><path d='M2 6h5v4H2V6z'/><path d='M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z'/></svg></td><td>
+    {{ end }}
+            <div class="col p-0 d-inline-flex">
+            <span class="mr-2"><span class="badge badge-secondary">{{ .Upsinfo.Battery.Type }}</span></span>
+                <div class="progress flex-grow-1 align-self-center">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}" role="progressbar" style="width:{{ .Upsinfo.Battery.Charge }}%;" aria-valuenow="{{ .Upsinfo.Battery.Charge }}" aria-valuemin="0" aria-valuemax="100">{{ .Upsinfo.Battery.Charge }}%</div>
                 </div>
-            </td></tr>
-        
-        <strong>{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}</strong>
+            </div>
+        </td></tr>
+        <tr><td>預估時間</td><td>{{ .Upsinfo.Battery.Runtime }}</td></tr>
+        <tr><td>電池電壓</td><td>{{ .Upsinfo.Battery.Voltage }}</td></tr>
+        <tr><td>輸入電壓</td><td>{{ .Upsinfo.Input.Voltage }}</td></tr>
+        <tr><td>蜂鳴器</td><td>{{ .Upsinfo.Upsfullinfo.Beeper.Status }}</td></tr>
+        <tr><td>負載</td><td>{{ .Upsinfo.Upsfullinfo.Load }}</td></tr>
+        <tr><td>廠牌</td>
+    {{ if eq .Upsinfo.Upsfullinfo.Mfr "CPS" }}
+            <td>CyberPower</td></tr>
+    {{ else }}
+            <td>{{ .Upsinfo.Upsfullinfo.Mfr }}</td></tr>
+    {{ end }}
+        <tr><td>電池測試</td><td>{{ .Upsinfo.Upsfullinfo.Test.Result }}</td></tr>
     </table>
-<!-- End - UPS Information -->
-
-
-
-
+  </div>
+</div>
+<!--
+<strong>{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}</strong>
 <strong>{{ .Upsinfo.Battery.Charge }}</strong><br>
 <strong>{{ .Upsinfo.Battery.Runtime }}</strong><br>
 <strong>{{ .Upsinfo.Battery.Type }}</strong><br>
@@ -177,6 +186,8 @@
 <strong>{{ .Upsinfo.Upsfullinfo.Serial }}</strong><br>
 <strong>{{ .Upsinfo.Upsfullinfo.Status }}</strong><br>
 <strong>{{ .Upsinfo.Upsfullinfo.Test.Result }}</strong>
+-->
+<!-- End - UPS Information -->
 
 <!-- wpa wpa2-->
 <iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3AWPA%3BP%3A26277050%3B%3B&size=150"></iframe>
