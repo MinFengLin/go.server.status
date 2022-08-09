@@ -172,6 +172,9 @@
     </table>
   </div>
 </div>
+{{ range .average }}
+    <strong>{{ . }}</strong>
+{{ end }}
 <!--
 <strong>{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}</strong>
 <strong>{{ .Upsinfo.Battery.Charge }}</strong><br>
@@ -195,3 +198,17 @@
 <iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3AWEP%3BP%3A26277050%3B%3B&size=150"></iframe>
 <!-- none-->
 <iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3A%3BP%3A%3B%3B&size=150"></iframe>
+
+<!-- Synology NAS information -->
+<div class="card mb-2">
+  <h4 class="card-header text-center">
+    Synology NAS information
+  </h4>
+  <div class="card-body">
+    <table  class='table table-sm mb-0'>
+        <tr><td>Average load</td>
+        <td><h5>
+        {{ range .average }}
+            <span class='badge badge-secondary' >{{ . }}</span>
+        {{ end }}
+        </h5></td>

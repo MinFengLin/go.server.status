@@ -59,7 +59,7 @@ func Parser_iotservice() IoTservices_slice {
 
 	
 	fmt.Printf("%+v\n", data)
-	Check_iotservice_realtime_status(&data)
+	// Check_iotservice_realtime_status(&data)
 
 	return data
 }

@@ -73,6 +73,7 @@ func server_run() {
 			"IoTservices": iotservice_data.IoTservices,
 			"Homeservices": homeservice_data.Homeservices,
 			"Upsinfo": upsinfo_data,
+			"average": apiservice.Parser_load_average(),
 		})
 	})
 
