@@ -6,6 +6,8 @@ import (
 	"time"
 	"fmt"
 	"os"
+	"strconv"
+	"html/template"
 
 	apiservice "service"
 
@@ -51,16 +53,37 @@ func ticker_update(time_set int) {
 	}()
 }
 
+func percent_to_color_charge(charge_v string)(string) {
+	int_p, _ :=  strconv.Atoi(charge_v)
+
+	switch {
+	case int_p >= 75:
+		return "success"
+	case int_p >= 60 :
+		return "info"
+	case int_p >= 45:
+		return "primary"
+	case int_p >= 30:
+		return "warning"
+	default:
+		return "danger"
+	}
+}
+
 func server_run() {
 	server := gin.Default()
+	server.SetFuncMap(template.FuncMap{
+		"percent_to_color_charge": percent_to_color_charge,
+	})
+
 	server.LoadHTMLFiles("index.html")
 	server.Static("/Img", "./Img_dir")
 	server.Static("/css", "./css_dir")
 
 	err := godotenv.Load()
-    if err != nil {
-        log.Fatal("Error loading .env file")
-    }
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	server.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{

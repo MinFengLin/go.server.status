@@ -126,6 +126,32 @@
         </table></small>
     </div>
 </div>
+<!-- End - Home Service -->
+<!-- UPS Information -->
+<!-- <div class="card mb-2">
+  <h4 class="card-header text-center">
+    UPS information
+  </h4>
+  <div class="card-body"> -->
+    <table class='table table-sm mb-0'>
+        {{ if eq .Upsinfo.Upsfullinfo.Status "OL" }}
+            <tr><td>Status</td><td><span class='badge badge-success'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 已充飽</td></tr>
+        {{ else if eq .Upsinfo.Upsfullinfo.Status "OL CHRG" }}
+            <tr><td>Status</td><td><span class='badge badge-info'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 穩定在線 - 充電中</td></tr>
+        {{ else if eq .Upsinfo.Upsfullinfo.Status "OB DISCHRG" }}
+            <tr><td>Status</td><td><span class='badge badge-primary'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式</td></tr>
+        {{ else if eq .Upsinfo.Upsfullinfo.Status "LB" }}
+            <tr><td>Status</td><td><span class='badge badge-warning'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 電池供應模式 - 低電量</td></tr>
+        {{ else }}
+            <tr><td>Status</td><td><span class='badge badge-danger'>{{ .Upsinfo.Upsfullinfo.Status }}</span> 關閉中</td></tr>
+        {{ end }}
+        <strong>{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}</strong>
+    </table>
+<!-- End - UPS Information -->
+
+
+
+
 <strong>{{ .Upsinfo.Battery.Charge }}</strong><br>
 <strong>{{ .Upsinfo.Battery.Runtime }}</strong><br>
 <strong>{{ .Upsinfo.Battery.Type }}</strong><br>
@@ -145,5 +171,3 @@
 <iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3AWEP%3BP%3A26277050%3B%3B&size=150"></iframe>
 <!-- none-->
 <iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3A%3BP%3A%3B%3B&size=150"></iframe>
-
-<!-- End - Home Service -->
