@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 )
 
 // https://stackoverflow.com/questions/64693710/parse-json-file-in-golang
@@ -40,6 +41,23 @@ type Upsfullinfo_s struct {
 	} `json:"test"`
 }
 // End -  json struct
+
+func Percent_to_color_charge(charge_v string)(string) {
+	int_p, _ :=  strconv.Atoi(charge_v)
+
+	switch {
+	case int_p >= 75:
+		return "success"
+	case int_p >= 60 :
+		return "info"
+	case int_p >= 45:
+		return "primary"
+	case int_p >= 30:
+		return "warning"
+	default:
+		return "danger"
+	}
+}
 
 func Parser_upsinfo() UpsInfo_slice {
 
