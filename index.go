@@ -74,6 +74,7 @@ func server_run() {
 			"Homeservices": homeservice_data.Homeservices,
 			"Upsinfo": upsinfo_data,
 			"average": apiservice.Parser_load_average(),
+			"uptime_users": apiservice.Parser_uptime_users(),
 		})
 	})
 

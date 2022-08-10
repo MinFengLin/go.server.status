@@ -4,7 +4,6 @@ import (
 	"os/exec"
 	"regexp"
 	"fmt"
-	// "strconv"
 )
 
 func Parser_load_average() [3]string {
@@ -26,4 +25,19 @@ func Parser_load_average() [3]string {
 	}
 
 	return load_average_r
+}
+
+func Parser_uptime_users() [2]string {
+	uptime_d := "uptime | awk {'print $3'}"
+	users_d := "uptime | awk {'print $4 \" \" $5'} | sed 's/,//g'"
+
+	uptime_r, _ := exec.Command("bash","-c",uptime_d).Output()
+	users_r, _ := exec.Command("bash","-c",users_d).Output()
+
+	var uptime_users [2]string
+
+	uptime_users[0] = string(uptime_r)
+	uptime_users[1] =string(users_r)
+
+	return uptime_users
 }

@@ -212,3 +212,8 @@
             <span class='badge badge-secondary' >{{ . }}</span>
         {{ end }}
         </h5></td>
+        <tr><td>Uptime</td><td>
+        {{ range .uptime_users }}
+            {{ . }}&nbsp&nbsp&nbsp&nbsp&nbsp
+        {{ end }}
+        </td></tr>
