@@ -1,0 +1,18 @@
+{
+    "j_Disk": [
+        {
+            "Name": "local",
+            "Path": "",
+            "Total_Space": "",
+            "Free_Space": "",
+            "Free_Space_Precent": ""
+        },
+        {
+            "Name": "Test",
+            "Path": "/home/minfeng",
+            "Total_Space": "",
+            "Free_Space": "",
+            "Free_Space_Precent": ""
+        }
+    ]
+}

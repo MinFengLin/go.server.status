@@ -18,6 +18,7 @@ var (
 	iotservice_data apiservice.IoTservices_slice
 	homeservice_data apiservice.Homeservices_slice
 	upsinfo_data apiservice.UpsInfo_slice
+	diskinfo_data apiservice.Disk_slice
 )
 
 func update_data() {
@@ -26,6 +27,7 @@ func update_data() {
 	// DEBUG_USE:fmt.Printf("%+v\n", iotservice_data)
 	homeservice_data = apiservice.Parser_homeservices()
 	upsinfo_data = apiservice.Parser_upsinfo()
+	diskinfo_data = apiservice.Parser_disk_info()
 	fmt.Printf("%+v\n", upsinfo_data)
 
 	// var homeservice_data_swap
@@ -43,6 +45,14 @@ func update_data() {
 		 * -- Check_status (_, time_set, iotservice_data)
 		 */
 		go apiservice.Check_iotservice_realtime_status(ii, 1000, &iotservice_data)
+	}
+
+	for ii, _:= range diskinfo_data.Disk_data {
+		/* use Goroutine
+		 * - if not use it will delay to long for wait service timeout or not
+		 * -- Check_status (_, time_set, iotservice_data)
+		 */
+		go apiservice.Parser_disk_space(ii, &diskinfo_data)
 	}
 }
 
@@ -63,6 +73,7 @@ func server_run() {
 	server := gin.Default()
 	server.SetFuncMap(template.FuncMap{
 		"percent_to_color_charge": apiservice.Percent_to_color_charge,
+		"percent_to_color_disk": apiservice.Percent_to_color_disk,
 	})
 
 	server.LoadHTMLFiles("index.html")
