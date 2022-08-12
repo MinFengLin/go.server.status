@@ -18,7 +18,7 @@ type Disk_slice struct {
 		Path         string `json:"Path"`
 		Total_Space  uint64 `json:"Total_Space"`
 		Free_Space   uint64 `json:"Free_Space"`
-		Free_Space_P uint64  `json:"Free_Space_Precent"`
+		Free_Space_P uint64 `json:"Free_Space_Precent"`
 	} `json:"j_Disk"`
 }
 
@@ -44,8 +44,8 @@ func Parser_load_average() [3]string {
 }
 
 func Parser_uptime_users() [2]string {
-	uptime_d := "uptime | awk {'print $3'}"
-	users_d := "uptime | awk {'print $4 \" \" $5'} | sed 's/,//g'"
+	uptime_d := `uptime -p | sed 's/up //g'`
+	users_d := "uptime | awk {'print $5\" \"$6'} | sed 's/,//g'"
 
 	uptime_r, _ := exec.Command("bash","-c",uptime_d).Output()
 	users_r, _ := exec.Command("bash","-c",users_d).Output()
@@ -56,6 +56,27 @@ func Parser_uptime_users() [2]string {
 	uptime_users[1] =string(users_r)
 
 	return uptime_users
+}
+
+func Percent_to_byte_disk(disk_d uint64)(string) {
+	fmt.Println("===============aaaaaaa======================")
+	fmt.Printf("%d\n", disk_d)
+	fmt.Println("===============aaaaaaa======================")
+
+	byte_arr := [9]string{"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"}
+	disk_d_byte := math.Floor(math.Log(float64(disk_d)) / math.Log(1024))
+
+	disk_d_print := disk_d_byte / math.Pow(1024, math.Floor(disk_d_byte))
+
+	// total_print := total_byte / math.pow(1024, math.floor(byte_arr))
+	// aa123 := free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
+
+	// fmt.Println("===============aaaaaaa======================")
+	// fmt.Printf("%s\n", aa123)
+	// fmt.Println("===============aaaaaaa======================")
+
+	return fmt.Sprintf("%f", disk_d_print) + "<small>" + byte_arr[int(disk_d_byte)] + "</small>"
+	// return free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
 }
 
 func Percent_to_color_disk(disk_v string)(string) {
@@ -88,7 +109,7 @@ func Parser_disk_space(ii int, disk *Disk_slice) {
 	}
 	disk.Disk_data[ii].Free_Space = fs.Bfree * uint64(fs.Bsize)
 	disk.Disk_data[ii].Total_Space = fs.Blocks * uint64(fs.Bsize)
-	disk.Disk_data[ii].Free_Space_P = uint64(math.Round(float64(disk.Disk_data[ii].Free_Space)/float64(disk.Disk_data[ii].Total_Space*100) * 10000))
+	disk.Disk_data[ii].Free_Space_P = 100 - uint64(math.Round(float64(disk.Disk_data[ii].Free_Space)/float64(disk.Disk_data[ii].Total_Space*100) * 10000))
 	fmt.Printf("%s -> Free_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space)
 	fmt.Printf("%s -> Total_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Total_Space)
 	fmt.Printf("%s -> Free_Space_P -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space_P)

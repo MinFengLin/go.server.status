@@ -66,7 +66,7 @@
     </h4>
     <div class="card-body pb-0">
         <small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Status</th><th>Control</th></tr></thead>
-            {{ range $IoTservice := .IoTservices }}
+            {{ range .IoTservices }}
                 {{ if eq .Status "ON" }}
                     <tr>
                         <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'><strong>Working</strong>
@@ -101,7 +101,7 @@
     </h4>
     <div class="card-body pb-0">
         <small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Port</th><th>Status</th></tr></thead>
-            {{ range $Homeservice := .Homeservices }}
+            {{ range .Homeservices }}
                 {{ if ne .Port "53" }}
                     {{ if eq .Other_cfg "" }}
                         <tr>
@@ -171,9 +171,9 @@
         <tr><td>負載</td><td>{{ .Upsinfo.Upsfullinfo.Load }}</td></tr>
         <tr><td>廠牌</td>
     {{ if eq .Upsinfo.Upsfullinfo.Mfr "CPS" }}
-            <td>CyberPower</td></tr>
+        <td>CyberPower</td></tr>
     {{ else }}
-            <td>{{ .Upsinfo.Upsfullinfo.Mfr }}</td></tr>
+        <td>{{ .Upsinfo.Upsfullinfo.Mfr }}</td></tr>
     {{ end }}
         <tr><td>電池測試</td><td>{{ .Upsinfo.Upsfullinfo.Test.Result }}</td></tr>
     </table>
@@ -221,6 +221,31 @@
         </h5></td>
         <tr><td>Uptime</td><td>
         {{ range .uptime_users }}
-            {{ . }}&nbsp&nbsp&nbsp&nbsp&nbsp
+            <span class="badge badge-secondary">{{ . }}</span>
         {{ end }}
         </td></tr>
+        <tr><td>Uptime</td><td>
+        {{ range .uptime_users }}
+            <span class="badge badge-secondary">{{ . }}</span>
+        {{ end }}
+        </td></tr>
+        {{ range .disk_info }}
+            <strong>{{ .Name }}</strong>
+            <strong>{{ .Path }}</strong>
+            <strong>{{ .Total_Space }}</strong>
+            <strong>{{ .Free_Space }}</strong>
+            <strong>{{ .Free_Space_P }}</strong>
+        {{ end }}
+        <div class="col p-0 d-inline-flex">
+        {{ range .disk_info }}
+        <span class="mr-2"><span class="badge badge-secondary">{{ .Name }}</span>{{ .Free_Space_P | percent_to_byte_disk }}</span>
+            <div class="progress flex-grow-1 align-self-center">
+                /* <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Free_Space_P | percent_to_color_disk }}" role="progressbar" style="width:{{ .Upsinfo.Battery.Charge }}%;" aria-valuenow="{{ .Upsinfo.Battery.Charge }}" aria-valuemin="0" aria-valuemax="100">{{ .Upsinfo.Battery.Charge }}%</div> */
+            </div>
+            <strong>{{ .Name }}</strong>
+            <strong>{{ .Path }}</strong>
+            <strong>{{ .Total_Space }}</strong>
+            <strong>{{ .Free_Space }}</strong>
+            <strong>{{ .Free_Space_P }}</strong>
+        {{ end }}
+        </div>

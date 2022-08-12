@@ -74,6 +74,7 @@ func server_run() {
 	server.SetFuncMap(template.FuncMap{
 		"percent_to_color_charge": apiservice.Percent_to_color_charge,
 		"percent_to_color_disk": apiservice.Percent_to_color_disk,
+		"percent_to_byte_disk": apiservice.Percent_to_byte_disk,
 	})
 
 	server.LoadHTMLFiles("index.html")
@@ -93,6 +94,7 @@ func server_run() {
 			"Upsinfo": upsinfo_data,
 			"average": apiservice.Parser_load_average(),
 			"uptime_users": apiservice.Parser_uptime_users(),
+			"disk_info": diskinfo_data.Disk_data,
 		})
 	})
 
