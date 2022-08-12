@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"net/http"
-	"log"
+	"time"
 )
 
 // https://stackoverflow.com/questions/64693710/parse-json-file-in-golang
@@ -22,20 +22,27 @@ type IoTservices struct {
 	Status    string `json:"POWER"`
 }
 
-func Check_iotservice_realtime_status(iotservice_data *IoTservices_slice) {
-	for ii, _:= range iotservice_data.IoTservices {
-		url := "http://"+ iotservice_data.IoTservices[ii].Ip + "/" + iotservice_data.IoTservices[ii].Other_cfg
-		resp, err := http.Get(url)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer resp.Body.Close()
+func Check_iotservice_realtime_status(ii int, time_set int, iotservice_data *IoTservices_slice) {
+	withtimeout := http.Client{Timeout: time.Duration(time_set)*time.Millisecond}
+	url := "http://"+ iotservice_data.IoTservices[ii].Ip + "/" + iotservice_data.IoTservices[ii].Other_cfg
 
+	resp, err := withtimeout.Get(url)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		defer resp.Body.Close()
 		if err = json.NewDecoder(resp.Body).Decode(&iotservice_data.IoTservices[ii]); err != nil {
-			log.Fatal(err)
-		}
-		// fmt.Println(iotservice_data.IoTservices[ii].Status)
+			fmt.Println(err)
+		}	
 	}
+	// defer resp.Body.Close()
+
+	// if err = json.NewDecoder(resp.Body).Decode(&iotservice_data.IoTservices[ii]); err != nil {
+	// 	fmt.Println(err)
+	// }
+	fmt.Println("====================================")
+	fmt.Println(iotservice_data.IoTservices[ii].Status)
+	fmt.Println("====================================")
 }
 
 func Parser_iotservice() IoTservices_slice {

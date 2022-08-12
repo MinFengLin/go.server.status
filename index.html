@@ -74,11 +74,18 @@
                         <td><a class='btn btn-danger' role='button' href="http://{{ .Ip }}/{{ .Other_cfg }}%20Off">Close</a>
                         </td>
                     </tr>
-                {{ else }}
+                {{ else if eq .Status "OFF" }}
                     <tr>
                         <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-danger'><strong>Shutdown</strong>
                         </td>
                         <td><a class='btn btn-primary' role='button' href="http://{{ .Ip }}/{{ .Other_cfg }}%20On">Open</a>
+                        </td>
+                    </tr>
+                {{ else }}
+                    <tr>
+                        <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-danger'><strong>Offline</strong>
+                        </td>
+                        <td><a class='btn btn-primary' role='button' href="">Offline</a>
                         </td>
                     </tr>
                 {{ end }}

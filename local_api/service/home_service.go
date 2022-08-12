@@ -23,7 +23,7 @@ type Homeservices struct {
 	Status    string `json:"Status"`
 }
 
-func Check_status(ii int, time_set int, homeservice_data *Homeservices_slice) {
+func Check_homeservice_status(ii int, time_set int, homeservice_data *Homeservices_slice) {
 	withtimeout := net.Dialer{Timeout: time.Duration(time_set)*time.Millisecond}
 	conn, err := withtimeout.Dial("tcp", homeservice_data.Homeservices[ii].Ip+":"+homeservice_data.Homeservices[ii].Port)
 

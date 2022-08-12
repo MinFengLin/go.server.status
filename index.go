@@ -35,7 +35,14 @@ func update_data() {
 		 * - if not use it will delay to long for wait service timeout or not
 		 * -- Check_status (_, time_set, homeservice_data)
 		 */
-		go apiservice.Check_status(ii, 500, &homeservice_data)
+		go apiservice.Check_homeservice_status(ii, 500, &homeservice_data)
+	}
+	for ii, _:= range iotservice_data.IoTservices {
+		/* use Goroutine
+		 * - if not use it will delay to long for wait service timeout or not
+		 * -- Check_status (_, time_set, iotservice_data)
+		 */
+		go apiservice.Check_iotservice_realtime_status(ii, 1000, &iotservice_data)
 	}
 }
 
