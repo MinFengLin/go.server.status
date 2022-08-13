@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"syscall"
 	"math"
+	"strconv"
 )
 
 type Disk_slice struct {
@@ -19,6 +20,41 @@ type Disk_slice struct {
 		Free_Space   uint64 `json:"Free_Space"`
 		Free_Space_P uint64 `json:"Free_Space_Precent"`
 	} `json:"j_Disk"`
+}
+
+type Ram_s struct {
+	Total_mem uint64
+	Free_mem  uint64
+	Mem_p     uint64
+}
+
+var (
+	Ram_mem Ram_s
+)
+
+func Parser_ram() Ram_s {
+	totalram_d := `cat /proc/meminfo | awk '/MemTotal/ { printf "%.2f", $2 }'`
+	freeram_d := `cat /proc/meminfo | awk '/MemFree/ { printf "%.2f", $2 }'`
+	cacheram_d := `cat /proc/meminfo | awk '/^Cached/ { printf "%.2f", $2 }'`
+
+	totalram_d_r, _ := strconv.Atoi(exec.Command("bash","-c",totalram_d).Output())
+	freeram_d_r, _ := strconv.Atoi(exec.Command("bash","-c",freeram_d).Output())
+	cacheram_d_r, _ := strconv.Atoi(exec.Command("bash","-c",cacheram_d).Output())
+
+	freeram_d_plus := freeram_d + cacheram_d
+	mem_p := 100 - uint64(math.Round(float64(freeram_d_plus)/float64(totalram_d) * 1024))
+
+
+	uptime_r, _ := exec.Command("bash","-c",uptime_d).Output()
+	users_r, _  := exec.Command("bash","-c",users_d).Output()
+
+	Ram_mem.Total_mem = wifi_qrcode_url
+	Ram_mem.Free_mem  = SSID
+	Ram_mem.Mem_p     = mem_p
+
+	fmt.Printf("%+v\n", Wifi_info)
+
+	return Wifi_info
 }
 
 func Parser_load_average() [3]string {
