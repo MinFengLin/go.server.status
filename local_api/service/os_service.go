@@ -7,7 +7,6 @@ import (
 	"regexp"
 	"fmt"
 	"encoding/json"
-	"strconv"
 	"syscall"
 	"math"
 )
@@ -59,14 +58,18 @@ func Parser_uptime_users() [2]string {
 }
 
 func Percent_to_byte_disk(disk_d uint64)(string) {
-	fmt.Println("===============aaaaaaa======================")
+	fmt.Println("===============aaaabbb======================")
 	fmt.Printf("%d\n", disk_d)
-	fmt.Println("===============aaaaaaa======================")
+	fmt.Println("===============aaaabbb======================")
 
 	byte_arr := [9]string{"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"}
 	disk_d_byte := math.Floor(math.Log(float64(disk_d)) / math.Log(1024))
+	fmt.Printf("%f\n", disk_d_byte)
 
-	disk_d_print := disk_d_byte / math.Pow(1024, math.Floor(disk_d_byte))
+
+	disk_d_print := float64(disk_d) / math.Pow(1024, math.Floor(disk_d_byte))
+	fmt.Printf("%f\n", math.Pow(1024, math.Floor(disk_d_byte)))
+	fmt.Printf("%f\n", disk_d_print)
 
 	// total_print := total_byte / math.pow(1024, math.floor(byte_arr))
 	// aa123 := free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
@@ -75,12 +78,14 @@ func Percent_to_byte_disk(disk_d uint64)(string) {
 	// fmt.Printf("%s\n", aa123)
 	// fmt.Println("===============aaaaaaa======================")
 
-	return fmt.Sprintf("%f", disk_d_print) + "<small>" + byte_arr[int(disk_d_byte)] + "</small>"
+	disk_d_print_p := fmt.Sprintf("%.2f", disk_d_print) + byte_arr[int(disk_d_byte-1)]
+
+	return disk_d_print_p
 	// return free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
 }
 
-func Percent_to_color_disk(disk_v string)(string) {
-	int_p, _ :=  strconv.Atoi(disk_v)
+func Percent_to_color_disk(disk_v uint64)(string) {
+	int_p :=  disk_v
 
 	switch {
 	case int_p >= 75:

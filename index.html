@@ -179,32 +179,7 @@
     </table>
   </div>
 </div>
-{{ range .average }}
-    <strong>{{ . }}</strong>
-{{ end }}
-<!--
-<strong>{{ .Upsinfo.Battery.Charge | percent_to_color_charge }}</strong>
-<strong>{{ .Upsinfo.Battery.Charge }}</strong><br>
-<strong>{{ .Upsinfo.Battery.Runtime }}</strong><br>
-<strong>{{ .Upsinfo.Battery.Type }}</strong><br>
-<strong>{{ .Upsinfo.Battery.Voltage }}</strong><br>
-<strong>{{ .Upsinfo.Input.Voltage }}</strong><br>
-<strong>{{ .Upsinfo.Upsfullinfo.Beeper.Status }}</strong><br>
-<strong>{{ .Upsinfo.Upsfullinfo.Load }}</strong><br>
-<strong>{{ .Upsinfo.Upsfullinfo.Mfr }}</strong><br>
-<strong>{{ .Upsinfo.Upsfullinfo.Model }}</strong><br>
-<strong>{{ .Upsinfo.Upsfullinfo.Serial }}</strong><br>
-<strong>{{ .Upsinfo.Upsfullinfo.Status }}</strong><br>
-<strong>{{ .Upsinfo.Upsfullinfo.Test.Result }}</strong>
--->
 <!-- End - UPS Information -->
-
-<!-- wpa wpa2-->
-<iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3AWPA%3BP%3A26277050%3B%3B&size=150"></iframe>
-<!-- wep-->
-<iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3AWEP%3BP%3A26277050%3B%3B&size=150"></iframe>
-<!-- none-->
-<iframe style="border:none" width="150" height="150" src="https://tw.piliapp.com/generator/qr-code/iframe/?data=WIFI%3AS%3ALin%3BT%3A%3BP%3A%3B%3B&size=150"></iframe>
 
 <!-- Synology NAS information -->
 <div class="card mb-2">
@@ -224,28 +199,23 @@
             <span class="badge badge-secondary">{{ . }}</span>
         {{ end }}
         </td></tr>
-        <tr><td>Uptime</td><td>
-        {{ range .uptime_users }}
-            <span class="badge badge-secondary">{{ . }}</span>
+        <tr><td>Disk Status (Free/Total)</td><td>
+        {{ range .disk_info }}
+        <div class="col p-0 d-inline-flex">
+            <span class="mr-2"><span class="badge badge-secondary">{{ .Name }}</span> : {{ .Free_Space | percent_to_byte_disk }} / {{ .Total_Space | percent_to_byte_disk }}</span>
+            <div class="progress flex-grow-1 align-self-center">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Free_Space_P | percent_to_color_disk }}" role="progressbar" style="width:{{ .Free_Space_P }}%;" aria-valuenow="{{ .Free_Space_P }}" aria-valuemin="0" aria-valuemax="100">{{ .Free_Space_P }}%</div>
+            </div>
+        </div>
         {{ end }}
         </td></tr>
+        <tr><td>RAM Status (Free/Total)</td><td>
         {{ range .disk_info }}
-            <strong>{{ .Name }}</strong>
-            <strong>{{ .Path }}</strong>
-            <strong>{{ .Total_Space }}</strong>
-            <strong>{{ .Free_Space }}</strong>
-            <strong>{{ .Free_Space_P }}</strong>
-        {{ end }}
         <div class="col p-0 d-inline-flex">
-        {{ range .disk_info }}
-        <span class="mr-2"><span class="badge badge-secondary">{{ .Name }}</span>{{ .Free_Space_P | percent_to_byte_disk }}</span>
+            <span class="mr-2"><span class="badge badge-secondary">{{ .Name }}</span> : {{ .Free_Space | percent_to_byte_disk }} / {{ .Total_Space | percent_to_byte_disk }}</span>
             <div class="progress flex-grow-1 align-self-center">
-                /* <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Free_Space_P | percent_to_color_disk }}" role="progressbar" style="width:{{ .Upsinfo.Battery.Charge }}%;" aria-valuenow="{{ .Upsinfo.Battery.Charge }}" aria-valuemin="0" aria-valuemax="100">{{ .Upsinfo.Battery.Charge }}%</div> */
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Free_Space_P | percent_to_color_disk }}" role="progressbar" style="width:{{ .Free_Space_P }}%;" aria-valuenow="{{ .Free_Space_P }}" aria-valuemin="0" aria-valuemax="100">{{ .Free_Space_P }}%</div>
             </div>
-            <strong>{{ .Name }}</strong>
-            <strong>{{ .Path }}</strong>
-            <strong>{{ .Total_Space }}</strong>
-            <strong>{{ .Free_Space }}</strong>
-            <strong>{{ .Free_Space_P }}</strong>
-        {{ end }}
         </div>
+        {{ end }}
+        </td></tr>
