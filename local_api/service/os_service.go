@@ -44,7 +44,7 @@ func Parser_load_average() [3]string {
 
 func Parser_uptime_users() [2]string {
 	uptime_d := `uptime -p | sed 's/up //g'`
-	users_d := "uptime | awk {'print $5\" \"$6'} | sed 's/,//g'"
+	users_d := "uptime | grep -ohe '[0-9.*] user[s,]'| sed 's/,//g'"
 
 	uptime_r, _ := exec.Command("bash","-c",uptime_d).Output()
 	users_r, _ := exec.Command("bash","-c",users_d).Output()
