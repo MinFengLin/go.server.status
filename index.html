@@ -217,7 +217,10 @@
             </div>
         </div>
         </td></tr>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<strong>{{ .ram_test.Total_mem }}</strong>
-<strong>{{ .ram_test.Free_mem }}</strong>
-<strong>{{ .ram_test.Mem_p }}</strong>
+        <tr><td>Top RAM user</td>
+        <td>
+            {{ range .top_ram }}
+            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small><br/>
+            {{ end }}
+        </td>
+        </tr>
