@@ -23,8 +23,8 @@ type Disk_slice struct {
 }
 
 type Ram_s struct {
-	Total_mem uint64
-	Free_mem  uint64
+	Total_mem string
+	Free_mem  string
 	Mem_p     uint64
 }
 
@@ -32,29 +32,46 @@ var (
 	Ram_mem Ram_s
 )
 
-func Parser_ram() Ram_s {
-	totalram_d := `cat /proc/meminfo | awk '/MemTotal/ { printf "%.2f", $2 }'`
-	freeram_d := `cat /proc/meminfo | awk '/MemFree/ { printf "%.2f", $2 }'`
-	cacheram_d := `cat /proc/meminfo | awk '/^Cached/ { printf "%.2f", $2 }'`
+// disk.Disk_data[ii].Free_Space = fs.Bfree * uint64(fs.Bsize)
+// disk.Disk_data[ii].Total_Space = fs.Blocks * uint64(fs.Bsize)
+// disk.Disk_data[ii].Free_Space_P = 100 - uint64(math.Round(float64(disk.Disk_data[ii].Free_Space)/float64(disk.Disk_data[ii].Total_Space*100) * 10000))
 
-	totalram_d_r, _ := strconv.Atoi(exec.Command("bash","-c",totalram_d).Output())
-	freeram_d_r, _ := strconv.Atoi(exec.Command("bash","-c",freeram_d).Output())
-	cacheram_d_r, _ := strconv.Atoi(exec.Command("bash","-c",cacheram_d).Output())
+func Parser_ram() Ram_s {
+	totalram_c := `cat /proc/meminfo | awk '/MemTotal/ { printf "%.2f", $2 }'`
+	freeram_c := `cat /proc/meminfo | awk '/MemFree/ { printf "%.2f", $2 }'`
+	cacheram_c := `cat /proc/meminfo | awk '/^Cached/ { printf "%.2f", $2 }'`
+
+	totalram_d_c, _ := exec.Command("bash","-c",totalram_c).Output()
+	totalram_d_s    := string(totalram_d_c)
+	totalram_d, _   := strconv.ParseFloat(totalram_d_s, 64)
+
+	freeram_d_c, _ := exec.Command("bash","-c",freeram_c).Output()
+	freeram_d_s    := string(freeram_d_c)
+	freeram_d, _   := strconv.ParseFloat(freeram_d_s, 64)
+
+	cacheram_d_c, _ := exec.Command("bash","-c",cacheram_c).Output()
+	cacheram_d_s    := string(cacheram_d_c)
+	cacheram_d, _   := strconv.ParseFloat(cacheram_d_s, 64)
 
 	freeram_d_plus := freeram_d + cacheram_d
-	mem_p := 100 - uint64(math.Round(float64(freeram_d_plus)/float64(totalram_d) * 1024))
+	mem_p := 100 - uint64(math.Round(float64(freeram_d_plus)/float64(totalram_d*100) * 10000))
 
-
-	uptime_r, _ := exec.Command("bash","-c",uptime_d).Output()
-	users_r, _  := exec.Command("bash","-c",users_d).Output()
-
-	Ram_mem.Total_mem = wifi_qrcode_url
-	Ram_mem.Free_mem  = SSID
+	fmt.Println("=================RAMMMMMMM=====================")
+	fmt.Printf("%f\n", cacheram_d)
+	fmt.Printf("%f\n", freeram_d_plus)
+	fmt.Printf("%d\n", mem_p)
+	// golang ubuntu wsl 怪怪的, 竟然要 1024*1024
+	Ram_mem.Total_mem = Percent_to_byte_disk(uint64(totalram_d)*1024*1024)
+	Ram_mem.Free_mem  = Percent_to_byte_disk(uint64(freeram_d_plus)*1024*1024)
 	Ram_mem.Mem_p     = mem_p
 
-	fmt.Printf("%+v\n", Wifi_info)
+	fmt.Printf("Total_mem -> %s\n", Ram_mem.Total_mem)
+	fmt.Printf("Free_mem -> %s\n", Ram_mem.Free_mem)
+	fmt.Printf("Mem_p -> %d\n", Ram_mem.Mem_p)
 
-	return Wifi_info
+	fmt.Printf("%+v\n", Ram_mem)
+	fmt.Println("=================RAMMMMMMM=====================")
+	return Ram_mem
 }
 
 func Parser_load_average() [3]string {
@@ -88,15 +105,15 @@ func Parser_uptime_users() [2]string {
 	var uptime_users [2]string
 
 	uptime_users[0] = string(uptime_r)
-	uptime_users[1] =string(users_r)
+	uptime_users[1] = string(users_r)
 
 	return uptime_users
 }
 
 func Percent_to_byte_disk(disk_d uint64)(string) {
-	fmt.Println("===============aaaabbb======================")
+	fmt.Println("===============aaaabbb1======================")
 	fmt.Printf("%d\n", disk_d)
-	fmt.Println("===============aaaabbb======================")
+	fmt.Println("===============aaaabbb1======================")
 
 	byte_arr := [9]string{"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"}
 	disk_d_byte := math.Floor(math.Log(float64(disk_d)) / math.Log(1024))

@@ -89,6 +89,7 @@ func server_run() {
 	server.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"Qrcodeurl": apiservice.Parser_wifiqrcode(os.Getenv("SSID"), os.Getenv("ENC"), os.Getenv("WIFIPWD")),
+			"ram_test": apiservice.Parser_ram(),
 			"IoTservices": iotservice_data.IoTservices,
 			"Homeservices": homeservice_data.Homeservices,
 			"Upsinfo": upsinfo_data,

@@ -210,12 +210,14 @@
         {{ end }}
         </td></tr>
         <tr><td>RAM Status (Free/Total)</td><td>
-        {{ range .disk_info }}
         <div class="col p-0 d-inline-flex">
-            <span class="mr-2"><span class="badge badge-secondary">{{ .Name }}</span> : {{ .Free_Space | percent_to_byte_disk }} / {{ .Total_Space | percent_to_byte_disk }}</span>
+            <span class="mr-2">{{ .ram_test.Free_mem }} / {{ .ram_test.Total_mem }}</span>
             <div class="progress flex-grow-1 align-self-center">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Free_Space_P | percent_to_color_disk }}" role="progressbar" style="width:{{ .Free_Space_P }}%;" aria-valuenow="{{ .Free_Space_P }}" aria-valuemin="0" aria-valuemax="100">{{ .Free_Space_P }}%</div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .ram_test.Mem_p | percent_to_color_disk }}" role="progressbar" style="width:{{ .ram_test.Mem_p }}%;" aria-valuenow="{{ .ram_test.Mem_p }}" aria-valuemin="0" aria-valuemax="100">{{ .ram_test.Mem_p }}%</div>
             </div>
         </div>
-        {{ end }}
         </td></tr>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<strong>{{ .ram_test.Total_mem }}</strong>
+<strong>{{ .ram_test.Free_mem }}</strong>
+<strong>{{ .ram_test.Mem_p }}</strong>
