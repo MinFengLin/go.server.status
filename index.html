@@ -224,3 +224,10 @@
             {{ end }}
         </td>
         </tr>
+        <tr><td>Top CPU user</td>
+        <td>
+            {{ range .top_cpu }}
+            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small><br/>
+            {{ end }}
+        </td>
+        </tr>

@@ -97,6 +97,7 @@ func server_run() {
 			"uptime_users": apiservice.Parser_uptime_users(),
 			"disk_info": diskinfo_data.Disk_data,
 			"top_ram": apiservice.Parser_top_ram(),
+			"top_cpu": apiservice.Parser_top_cpu(),
 		})
 	})
 

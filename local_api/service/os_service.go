@@ -33,6 +33,28 @@ var (
 	Ram_info Ram_s
 )
 
+func Parser_top_cpu() [6]string {
+	j := 5
+	uptime_cmd_c := "ps -e k-pcpu -o pcpu,args | head -n " + fmt.Sprint(j)
+	fmt.Printf("%s\n", uptime_cmd_c)
+	uptime_cmd_r, _ :=exec.Command("bash","-c",uptime_cmd_c).Output()
+	uptime_cmd := string(uptime_cmd_r)
+
+	var load_average_r [6]string
+	split_s := strings.Split(strings.ReplaceAll(uptime_cmd, "\r\n", "\n"), "\n")
+	for ii, avgs := range split_s {
+		if (ii != j+1) {load_average_r[ii] = avgs}
+	}
+	fmt.Println("===============6666666666666666=============================")
+	for i := 0; i < j; i++ {
+		fmt.Printf("%d\n", i)
+		fmt.Println(load_average_r[i] + "\n\n")
+	}
+	fmt.Println("===============6666666666666666=============================")
+
+	return load_average_r
+}
+
 func Parser_top_ram() [6]string {
 	j := 5
 	uptime_cmd_c := "ps -e k-rss -o rss,args | head -n " + fmt.Sprint(j)
