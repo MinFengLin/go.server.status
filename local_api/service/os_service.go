@@ -29,7 +29,7 @@ type Ram_s struct {
 }
 
 var (
-	Ram_mem Ram_s
+	Ram_info Ram_s
 )
 
 // disk.Disk_data[ii].Free_Space = fs.Bfree * uint64(fs.Bsize)
@@ -61,17 +61,17 @@ func Parser_ram() Ram_s {
 	fmt.Printf("%f\n", freeram_d_plus)
 	fmt.Printf("%d\n", mem_p)
 	// golang ubuntu wsl 怪怪的, 竟然要 1024*1024
-	Ram_mem.Total_mem = Percent_to_byte_disk(uint64(totalram_d)*1024*1024)
-	Ram_mem.Free_mem  = Percent_to_byte_disk(uint64(freeram_d_plus)*1024*1024)
-	Ram_mem.Mem_p     = mem_p
+	Ram_info.Total_mem = Percent_to_byte_disk(uint64(totalram_d)*1024*1024)
+	Ram_info.Free_mem  = Percent_to_byte_disk(uint64(freeram_d_plus)*1024*1024)
+	Ram_info.Mem_p     = mem_p
 
-	fmt.Printf("Total_mem -> %s\n", Ram_mem.Total_mem)
-	fmt.Printf("Free_mem -> %s\n", Ram_mem.Free_mem)
-	fmt.Printf("Mem_p -> %d\n", Ram_mem.Mem_p)
+	fmt.Printf("Total_mem -> %s\n", Ram_info.Total_mem)
+	fmt.Printf("Free_mem -> %s\n", Ram_info.Free_mem)
+	fmt.Printf("Mem_p -> %d\n", Ram_info.Mem_p)
 
-	fmt.Printf("%+v\n", Ram_mem)
+	fmt.Printf("%+v\n", Ram_info)
 	fmt.Println("=================RAMMMMMMM=====================")
-	return Ram_mem
+	return Ram_info
 }
 
 func Parser_load_average() [3]string {
