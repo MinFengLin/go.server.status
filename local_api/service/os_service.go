@@ -217,7 +217,7 @@ func Parser_disk_space(ii int, disk *Disk_slice) {
 }
 
 func Parser_disk_info() Disk_slice {
-	filename := "./local_api/json/disk_data.json"
+	filename := "./json/disk_data.json"
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("failed to open json file: %s, error: %v", filename, err)

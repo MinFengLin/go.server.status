@@ -61,7 +61,7 @@ func Percent_to_color_charge(charge_v string)(string) {
 
 func Parser_upsinfo() UpsInfo_slice {
 
-	filename := "./local_api/json/go_ups_data.json"
+	filename := "./json/go_ups_data.json"
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("failed to open json file: %s, error: %v", filename, err)

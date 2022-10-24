@@ -47,7 +47,7 @@ func Check_iotservice_realtime_status(ii int, time_set int, iotservice_data *IoT
 
 func Parser_iotservice() IoTservices_slice {
 
-	filename := "./local_api/json/service_data.json"
+	filename := "./json/service_data.json"
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("failed to open json file: %s, error: %v", filename, err)

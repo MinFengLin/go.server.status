@@ -88,11 +88,16 @@ func server_run() {
 
 	server.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"Qrcodeurl": apiservice.Parser_wifiqrcode(os.Getenv("SSID"), os.Getenv("ENC"), os.Getenv("WIFIPWD")),
-			"ram_test": apiservice.Parser_ram(),
+			// Qrcode
+			"Qrcodeurl": apiservice.Parser_wifiqrcode(os.Getenv("SHOW"), os.Getenv("SSID"), os.Getenv("ENC"), os.Getenv("WIFIPWD")),
+			// IoTservice
 			"IoTservices": iotservice_data.IoTservices,
+			// Homeservices
 			"Homeservices": homeservice_data.Homeservices,
+			// UPS info
 			"Upsinfo": upsinfo_data,
+			// OS info
+			"ram_test": apiservice.Parser_ram(),
 			"average": apiservice.Parser_load_average(),
 			"uptime_users": apiservice.Parser_uptime_users(),
 			"disk_info": diskinfo_data.Disk_data,
@@ -101,7 +106,7 @@ func server_run() {
 		})
 	})
 
-	log.Fatal(server.Run(":80"))
+	log.Fatal(server.Run(":" + os.Getenv("PORT")))
 }
 
 func main() {

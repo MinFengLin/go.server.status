@@ -1,3 +1,9 @@
-SSID=
-ENC=
-WIFIPWD=
+# ## Show wifi qrcode or not
+# SHOW=Enable
+# SSID=Lin
+# # WPA, WPA2, WEP, NONE
+# ENC=WPA2
+# WIFIPWD=123456789
+
+# go gin service port
+PORT=80

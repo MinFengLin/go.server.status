@@ -23,6 +23,7 @@
 
 <html><div class="container">
 <!-- Wi-Fi QR-Code -->
+{{ if eq .Qrcodeurl.SHOW "Enable" }}
 <div class="card my-2">
     <h4 class="card-header text-center">
       Wi-Fi QR-Code
@@ -58,6 +59,7 @@
       </div>
   </div>
 </div>
+{{ end }}
 <!-- End - Wi-Fi QR-Code -->
 <!-- IoT Service -->
 <div class="card my-2">
