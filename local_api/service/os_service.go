@@ -33,14 +33,14 @@ var (
 	Ram_info Ram_s
 )
 
-func Parser_top_cpu() [6]string {
-	j := 5
+func Parser_top_cpu() [7]string {
+	j := 6
 	uptime_cmd_c := "ps -e k-pcpu -o pcpu,args | head -n " + fmt.Sprint(j)
 	fmt.Printf("%s\n", uptime_cmd_c)
 	uptime_cmd_r, _ :=exec.Command("bash","-c",uptime_cmd_c).Output()
 	uptime_cmd := string(uptime_cmd_r)
 
-	var load_average_r [6]string
+	var load_average_r [7]string
 	split_s := strings.Split(strings.ReplaceAll(uptime_cmd, "\r\n", "\n"), "\n")
 	for ii, avgs := range split_s {
 		if (ii != j+1) {load_average_r[ii] = avgs}
@@ -55,14 +55,14 @@ func Parser_top_cpu() [6]string {
 	return load_average_r
 }
 
-func Parser_top_ram() [6]string {
-	j := 5
+func Parser_top_ram() [7]string {
+	j := 6
 	uptime_cmd_c := "ps -e k-rss -o rss,args | head -n " + fmt.Sprint(j)
 	fmt.Printf("%s\n", uptime_cmd_c)
 	uptime_cmd_r, _ :=exec.Command("bash","-c",uptime_cmd_c).Output()
 	uptime_cmd := string(uptime_cmd_r)
 
-	var load_average_r [6]string
+	var load_average_r [7]string
 	split_s := strings.Split(strings.ReplaceAll(uptime_cmd, "\r\n", "\n"), "\n")
 	for ii, avgs := range split_s {
 		if (ii != j+1) {load_average_r[ii] = avgs}
@@ -153,30 +153,33 @@ func Parser_uptime_users() [2]string {
 }
 
 func Percent_to_byte_disk(disk_d uint64)(string) {
-	fmt.Println("===============aaaabbb1======================")
-	fmt.Printf("%d\n", disk_d)
-	fmt.Println("===============aaaabbb1======================")
 
 	byte_arr := [9]string{"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"}
-	disk_d_byte := math.Floor(math.Log(float64(disk_d)) / math.Log(1024))
-	fmt.Printf("%f\n", disk_d_byte)
+
+	if (disk_d == 0) {
+		return "0 " + byte_arr[0]
+	} else {
+		byte_arr := [9]string{"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"}
+		disk_d_byte := math.Floor(math.Log(float64(disk_d)) / math.Log(1024))
+		fmt.Printf("%f\n", disk_d_byte)
 
 
-	disk_d_print := float64(disk_d) / math.Pow(1024, math.Floor(disk_d_byte))
-	fmt.Printf("%f\n", math.Pow(1024, math.Floor(disk_d_byte)))
-	fmt.Printf("%f\n", disk_d_print)
+		disk_d_print := float64(disk_d) / math.Pow(1024, math.Floor(disk_d_byte))
+		fmt.Printf("%f\n", math.Pow(1024, math.Floor(disk_d_byte)))
+		fmt.Printf("%f\n", disk_d_print)
 
-	// total_print := total_byte / math.pow(1024, math.floor(byte_arr))
-	// aa123 := free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
+		// total_print := total_byte / math.pow(1024, math.floor(byte_arr))
+		// aa123 := free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
 
-	// fmt.Println("===============aaaaaaa======================")
-	// fmt.Printf("%s\n", aa123)
-	// fmt.Println("===============aaaaaaa======================")
+		// fmt.Println("===============aaaaaaa======================")
+		// fmt.Printf("%s\n", aa123)
+		// fmt.Println("===============aaaaaaa======================")
 
-	disk_d_print_p := fmt.Sprintf("%.2f", disk_d_print) + byte_arr[int(disk_d_byte-1)]
+		disk_d_print_p := fmt.Sprintf("%.2f", disk_d_print) + " " + byte_arr[int(disk_d_byte-1)]
 
-	return disk_d_print_p
-	// return free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
+		return disk_d_print_p
+		// return free_print + "<small>" + byte_arr[free_byte] + "</small>" + "/" + total_print + "<small>" + byte_arr[total_byte] + "</small>"
+	}
 }
 
 func Percent_to_color_disk(disk_v uint64)(string) {
@@ -204,16 +207,24 @@ func Parser_disk_space(ii int, disk *Disk_slice) {
 
 	fs := syscall.Statfs_t{}
 	err := syscall.Statfs(disk.Disk_data[ii].Path, &fs)
+	fmt.Println("===============101010======================")
 	if err != nil {
 		fmt.Printf("failed to parser disk space: %v", err)
+		disk.Disk_data[ii].Free_Space = 0
+		disk.Disk_data[ii].Total_Space = 0
+		disk.Disk_data[ii].Free_Space_P = 0
+		fmt.Printf("%s -> Free_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space)
+		fmt.Printf("%s -> Total_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Total_Space)
+		fmt.Printf("%s -> Free_Space_P -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space_P)
+	} else {
+		disk.Disk_data[ii].Free_Space = fs.Bfree * uint64(fs.Bsize)
+		disk.Disk_data[ii].Total_Space = fs.Blocks * uint64(fs.Bsize)
+		disk.Disk_data[ii].Free_Space_P = 100 - uint64(math.Round(float64(disk.Disk_data[ii].Free_Space)/float64(disk.Disk_data[ii].Total_Space*100) * 10000))
+		fmt.Printf("%s -> Free_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space)
+		fmt.Printf("%s -> Total_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Total_Space)
+		fmt.Printf("%s -> Free_Space_P -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space_P)
 	}
-	disk.Disk_data[ii].Free_Space = fs.Bfree * uint64(fs.Bsize)
-	disk.Disk_data[ii].Total_Space = fs.Blocks * uint64(fs.Bsize)
-	disk.Disk_data[ii].Free_Space_P = 100 - uint64(math.Round(float64(disk.Disk_data[ii].Free_Space)/float64(disk.Disk_data[ii].Total_Space*100) * 10000))
-	fmt.Printf("%s -> Free_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space)
-	fmt.Printf("%s -> Total_Space -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Total_Space)
-	fmt.Printf("%s -> Free_Space_P -> %d\n", disk.Disk_data[ii].Name, disk.Disk_data[ii].Free_Space_P)
-
+	fmt.Println("===============101010======================")
 }
 
 func Parser_disk_info() Disk_slice {

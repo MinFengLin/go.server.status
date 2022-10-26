@@ -189,13 +189,14 @@
     Synology NAS information
   </h4>
   <div class="card-body">
-    <table  class='table table-sm mb-0'>
+    <table class='table table-sm mb-0'>
         <tr><td>Average load</td>
         <td><h5>
         {{ range .average }}
             <span class='badge badge-secondary' >{{ . }}</span>
         {{ end }}
         </h5></td>
+
         <tr><td>Uptime</td><td>
         {{ range .uptime_users }}
             <span class="badge badge-secondary">{{ . }}</span>
@@ -211,6 +212,7 @@
         </div>
         {{ end }}
         </td></tr>
+
         <tr><td>RAM Status (Free/Total)</td><td>
         <div class="col p-0 d-inline-flex">
             <span class="mr-2">{{ .ram_test.Free_mem }} / {{ .ram_test.Total_mem }}</span>
@@ -219,17 +221,21 @@
             </div>
         </div>
         </td></tr>
-        <tr><td>Top RAM user</td>
+    
+        <tr><td>Top 5 RAM use</td>
         <td>
             {{ range .top_ram }}
-            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small><br/>
+            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small>
             {{ end }}
         </td>
         </tr>
-        <tr><td>Top CPU user</td>
+        <tr><td>Top 5 CPU use</td>
         <td>
             {{ range .top_cpu }}
-            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small><br/>
+            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small>
             {{ end }}
         </td>
         </tr>
+    </table>
+  </div>
+</div>
