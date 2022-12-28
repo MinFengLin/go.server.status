@@ -1,15 +1,8 @@
-package service
+package pkg
 
 import (
 	"fmt"
 )
-
-type Wifi_info_s struct {
-	SHOW  string
-	URL     string
-	SSID  	string
-	WIFIPWD string
-}
 
 var (
 	Wifi_info Wifi_info_s
@@ -34,14 +27,14 @@ func Parser_wifiqrcode(SHOW string, SSID string, ENC string, WIFIPWD string) Wif
 	wifi_qrcode_url += "%3BP%3A"
 
 	if WIFIPWD != "" {
-		wifi_qrcode_url += WIFIPWD + "%3B%3B&size=150" 
+		wifi_qrcode_url += WIFIPWD + "%3B%3B&size=150"
 	} else {
-		wifi_qrcode_url += "%3B%3B&size=150" 
+		wifi_qrcode_url += "%3B%3B&size=150"
 	}
 
-	Wifi_info.SHOW    = SHOW
-	Wifi_info.URL     = wifi_qrcode_url
-	Wifi_info.SSID    = SSID
+	Wifi_info.SHOW = SHOW
+	Wifi_info.URL = wifi_qrcode_url
+	Wifi_info.SSID = SSID
 	Wifi_info.WIFIPWD = WIFIPWD
 
 	fmt.Printf("%+v\n", Wifi_info)

@@ -1,0 +1,56 @@
+<!-- Synology NAS information -->
+<div class="card mb-2">
+  <h4 class="card-header text-center">
+    Synology NAS information
+  </h4>
+  <div class="card-body">
+    <table class='table table-sm mb-0'>
+        <tr><td>Average load</td>
+        <td><h5>
+        {{ range .average }}
+            <span class='badge badge-secondary' >{{ . }}</span>
+        {{ end }}
+        </h5></td>
+
+        <tr><td>Uptime</td><td>
+        {{ range .uptime_users }}
+            <span class="badge badge-secondary">{{ . }}</span>
+        {{ end }}
+        </td></tr>
+        <tr><td>Disk Status (Free/Total)</td><td>
+        {{ range .disk_info }}
+        <div class="col p-0 d-inline-flex">
+            <span class="mr-2"><span class="badge badge-secondary">{{ .Name }}</span> : {{ .Free_Space | percent_to_byte_disk }} / {{ .Total_Space | percent_to_byte_disk }}</span>
+            <div class="progress flex-grow-1 align-self-center">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .Free_Space_P | percent_to_color_disk }}" role="progressbar" style="width:{{ .Free_Space_P }}%;" aria-valuenow="{{ .Free_Space_P }}" aria-valuemin="0" aria-valuemax="100">{{ .Free_Space_P }}%</div>
+            </div>
+        </div>
+        {{ end }}
+        </td></tr>
+
+        <tr><td>RAM Status (Free/Total)</td><td>
+        <div class="col p-0 d-inline-flex">
+            <span class="mr-2">{{ .ram_test.Free_mem }} / {{ .ram_test.Total_mem }}</span>
+            <div class="progress flex-grow-1 align-self-center">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ .ram_test.Mem_p | percent_to_color_disk }}" role="progressbar" style="width:{{ .ram_test.Mem_p }}%;" aria-valuenow="{{ .ram_test.Mem_p }}" aria-valuemin="0" aria-valuemax="100">{{ .ram_test.Mem_p }}%</div>
+            </div>
+        </div>
+        </td></tr>
+    
+        <tr><td>Top 5 RAM use</td>
+        <td>
+            {{ range .top_ram }}
+            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small>
+            {{ end }}
+        </td>
+        </tr>
+        <tr><td>Top 5 CPU use</td>
+        <td>
+            {{ range .top_cpu }}
+            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small>
+            {{ end }}
+        </td>
+        </tr>
+    </table>
+  </div>
+</div>

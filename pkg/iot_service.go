@@ -1,30 +1,17 @@
-package service
+package pkg
 
 import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"net/http"
+	"os"
 	"time"
 )
 
-// https://stackoverflow.com/questions/64693710/parse-json-file-in-golang
-
-type IoTservices_slice struct {
-	IoTservices []IoTservices `json:"j_IoTservices"`
-}
-
-type IoTservices struct {
-	Ip        string `json:"Ip"`
-	Service   string `json:"Service"`
-	Other_cfg string `json:"Other_cfg"`
-	Status    string `json:"POWER"`
-}
-
 func Check_iotservice_realtime_status(ii int, time_set int, iotservice_data *IoTservices_slice) {
-	withtimeout := http.Client{Timeout: time.Duration(time_set)*time.Millisecond}
-	url := "http://"+ iotservice_data.IoTservices[ii].Ip + "/" + iotservice_data.IoTservices[ii].Other_cfg
+	withtimeout := http.Client{Timeout: time.Duration(time_set) * time.Millisecond}
+	url := "http://" + iotservice_data.IoTservices[ii].Ip + "/" + iotservice_data.IoTservices[ii].Other_cfg
 
 	resp, err := withtimeout.Get(url)
 	if err != nil {
@@ -33,7 +20,7 @@ func Check_iotservice_realtime_status(ii int, time_set int, iotservice_data *IoT
 		defer resp.Body.Close()
 		if err = json.NewDecoder(resp.Body).Decode(&iotservice_data.IoTservices[ii]); err != nil {
 			fmt.Println(err)
-		}	
+		}
 	}
 	// defer resp.Body.Close()
 
@@ -47,7 +34,7 @@ func Check_iotservice_realtime_status(ii int, time_set int, iotservice_data *IoT
 
 func Parser_iotservice() IoTservices_slice {
 
-	filename := "./json/service_data.json"
+	filename := "./configs/service_data.json"
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("failed to open json file: %s, error: %v", filename, err)
@@ -64,7 +51,6 @@ func Parser_iotservice() IoTservices_slice {
 		fmt.Printf("failed to unmarshal json file, error: %v", err)
 	}
 
-	
 	fmt.Printf("%+v\n", data)
 	// Check_iotservice_realtime_status(&data)
 

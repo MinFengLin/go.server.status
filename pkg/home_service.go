@@ -1,30 +1,16 @@
-package service
+package pkg
 
 import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"net"
+	"os"
 	"time"
 )
 
-// https://stackoverflow.com/questions/64693710/parse-json-file-in-golang
-
-type Homeservices_slice struct {
-	Homeservices []Homeservices `json:"j_Homeservices"`
-}
-
-type Homeservices struct {
-	Ip        string `json:"Ip"`
-	Service   string `json:"Service"`
-	Port      string `json:"Port"`
-	Other_cfg string `json:"Other_cfg"`
-	Status    string `json:"Status"`
-}
-
 func Check_homeservice_status(ii int, time_set int, homeservice_data *Homeservices_slice) {
-	withtimeout := net.Dialer{Timeout: time.Duration(time_set)*time.Millisecond}
+	withtimeout := net.Dialer{Timeout: time.Duration(time_set) * time.Millisecond}
 	conn, err := withtimeout.Dial("tcp", homeservice_data.Homeservices[ii].Ip+":"+homeservice_data.Homeservices[ii].Port)
 
 	if err != nil {
@@ -39,7 +25,7 @@ func Check_homeservice_status(ii int, time_set int, homeservice_data *Homeservic
 
 func Parser_homeservices() Homeservices_slice {
 
-	filename := "./json/service_data.json"
+	filename := "./configs/service_data.json"
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("failed to open json file: %s, error: %v", filename, err)

@@ -1,0 +1,35 @@
+<!-- IoT Service -->
+<div class="card my-2">
+    <h4 class="card-header text-center">
+      IoT Service Status & Control
+    </h4>
+    <div class="card-body pb-0">
+        <small><table  class='table table-striped table-sm '><thead><tr><th>Service</th><th>Status</th><th>Control</th></tr></thead>
+            {{ range .IoTservices }}
+                {{ if eq .Status "ON" }}
+                    <tr>
+                        <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-success'><strong>Working</strong>
+                        </td>
+                        <td><a class='btn btn-danger' role='button' href="http://{{ .Ip }}/{{ .Other_cfg }}%20Off">Close</a>
+                        </td>
+                    </tr>
+                {{ else if eq .Status "OFF" }}
+                    <tr>
+                        <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-danger'><strong>Shutdown</strong>
+                        </td>
+                        <td><a class='btn btn-primary' role='button' href="http://{{ .Ip }}/{{ .Other_cfg }}%20On">Open</a>
+                        </td>
+                    </tr>
+                {{ else }}
+                    <tr>
+                        <td><a href="http://{{ .Ip }}"><strong>{{ .Service }}</strong></a></td><td class='table-danger'><strong>Offline</strong>
+                        </td>
+                        <td><a class='btn btn-primary' role='button' href="">Offline</a>
+                        </td>
+                    </tr>
+                {{ end }}
+            {{ end }}
+        </table></small>
+    </div>
+</div>
+<!-- End - IoT Service -->
