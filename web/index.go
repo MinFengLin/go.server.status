@@ -129,7 +129,7 @@ func Server_run() {
 	server.SetHTMLTemplate(templ)
 
 	// example: ./web/assets/css/org.css
-	server.StaticFS("/css", http.FS(f))
+	server.StaticFS("/web", http.FS(f))
 
 	err := godotenv.Load()
 	if err != nil {

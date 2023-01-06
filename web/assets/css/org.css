@@ -7,3 +7,11 @@ pre code {
   word-wrap: normal;
   white-space: pre;
 }
+
+text-overflow: ellipsis;
+
+.ellipsis_1line {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -40,14 +40,14 @@
         <tr><td>Top 5 RAM use</td>
         <td>
             {{ range .top_ram }}
-            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small>
+            <small><pre class='mb-0 '><code class="ellipsis_1line">{{ . }}</code></pre></small>
             {{ end }}
         </td>
         </tr>
         <tr><td>Top 5 CPU use</td>
         <td>
             {{ range .top_cpu }}
-            <small><pre class='mb-0 '><code>{{ . }}</code></pre></small>
+            <small><pre class='mb-0 '><code class="ellipsis_1line">{{ . }}</code></pre></small>
             {{ end }}
         </td>
         </tr>
